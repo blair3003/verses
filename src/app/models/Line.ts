@@ -22,4 +22,4 @@ const lineSchema = new mongoose.Schema(
     }
 )
 
-export default mongoose.model('Line', lineSchema, 'lines')
+export default mongoose.models.Line || mongoose.model('Line', lineSchema, 'lines')

@@ -18,4 +18,4 @@ const verseSchema = new mongoose.Schema(
     }
 )
 
-export default mongoose.model('Verse', verseSchema, 'verses')
+export default mongoose.models.Verse || mongoose.model('Verse', verseSchema, 'verses')

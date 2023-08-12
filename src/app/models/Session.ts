@@ -12,4 +12,4 @@ const sessionSchema = new mongoose.Schema(
     }
 )
 
-export default mongoose.model('Session', sessionSchema, 'sessions')
+export default mongoose.models.Session || mongoose.model('Session', sessionSchema, 'sessions')
