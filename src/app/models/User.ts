@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema(
         emailVerified: Date,
         password: String,
         image: String,
+        verseIds: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Verse'
+        }]
     },
     {
         timestamps: true

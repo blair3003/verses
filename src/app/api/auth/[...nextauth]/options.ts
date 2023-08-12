@@ -1,7 +1,7 @@
 import type { AuthOptions } from 'next-auth'
 
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
-import clientPromise from '@/app/mongodb/clientPromise'
+import clientPromise from '@/lib/clientPromise'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 
