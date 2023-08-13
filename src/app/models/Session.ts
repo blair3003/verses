@@ -1,9 +1,15 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema, Types } from 'mongoose'
 
-const sessionSchema = new mongoose.Schema(
+export type Session = {
+    userId: Types.ObjectId
+    sessionToken: string
+    expires: string
+}
+
+const sessionSchema = new mongoose.Schema<Session>(
     {
         userId: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             required: true,
             ref: 'User'
         },

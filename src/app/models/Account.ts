@@ -1,9 +1,23 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema, Types } from 'mongoose'
 
-const accountSchema = new mongoose.Schema(
+export type Account = {
+    userId: Types.ObjectId
+    type: string
+    provider: string
+    providerAccountId: string
+    id_token: string
+    access_token: string
+    refresh_token: string
+    token_type: string
+    scope: string
+    session_state: string
+    expires_at: number
+}
+
+const accountSchema = new mongoose.Schema<Account>(
     {
         userId: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             required: true,
             ref: 'User'
         },

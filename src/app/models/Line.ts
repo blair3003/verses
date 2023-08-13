@@ -1,19 +1,27 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema, Types } from 'mongoose'
 
-const lineSchema = new mongoose.Schema(
+export type Line = {
+    userId: Types.ObjectId
+    verseId: Types.ObjectId
+    body: string
+    media: string
+    readIds: Types.ObjectId[]
+}
+
+const lineSchema = new mongoose.Schema<Line>(
     {
         userId: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'User'
         },
         verseId: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'Verse'
         },
         body: String,
         media: String,
         readIds: [{
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'User'
         }]
     },

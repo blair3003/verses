@@ -1,6 +1,15 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema, Types } from 'mongoose'
 
-const userSchema = new mongoose.Schema(
+export type User = {
+    name: string
+    email: string
+    emailVerified: string
+    password: string
+    image: string
+    verseIds: Types.ObjectId[]
+}
+
+const userSchema = new Schema<User>(
     {
         name: {
             type: String,
@@ -15,7 +24,7 @@ const userSchema = new mongoose.Schema(
         password: String,
         image: String,
         verseIds: [{
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'Verse'
         }]
     },

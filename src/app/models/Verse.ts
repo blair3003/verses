@@ -1,13 +1,20 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema, Types } from 'mongoose'
 
-const verseSchema = new mongoose.Schema(
+export type Verse = {
+    userIds: Types.ObjectId[]
+    latestLineId: Types.ObjectId
+    group: boolean
+    subject: string
+}
+
+const verseSchema = new Schema<Verse>(
     {
         userIds: [{
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'User'
         }],
         latestLineId: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'Line'
         },
         group: Boolean,
