@@ -8,9 +8,9 @@ export default async function Home() {
 	if (!session) redirect('/api/auth/signin')
 
 	return (
-		<main>
+		<>
 			Hello
 
-		</main>
+		</>
 	)
 }

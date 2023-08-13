@@ -1,4 +1,4 @@
-import user, { User } from '@/app/models/User'
+import user, { User } from '@/app/models/user'
 import dbConnect from '@/lib/dbConnect'
 
 const getAllUsers = async (): Promise<User[]> => {

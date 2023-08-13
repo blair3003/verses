@@ -6,7 +6,7 @@ export type Session = {
     expires: string
 }
 
-const sessionSchema = new mongoose.Schema<Session>(
+const sessionSchema = new Schema<Session>(
     {
         userId: {
             type: Schema.Types.ObjectId,
@@ -18,4 +18,4 @@ const sessionSchema = new mongoose.Schema<Session>(
     }
 )
 
-export default mongoose.models.Session || mongoose.model('Session', sessionSchema, 'sessions')
+export default mongoose.models.session || mongoose.model('session', sessionSchema, 'sessions')

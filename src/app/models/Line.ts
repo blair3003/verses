@@ -6,9 +6,10 @@ export type Line = {
     body: string
     media: string
     readIds: Types.ObjectId[]
+    createdAt: string
 }
 
-const lineSchema = new mongoose.Schema<Line>(
+const lineSchema = new Schema<Line>(
     {
         userId: {
             type: Schema.Types.ObjectId,
@@ -30,4 +31,4 @@ const lineSchema = new mongoose.Schema<Line>(
     }
 )
 
-export default mongoose.models.Line || mongoose.model('Line', lineSchema, 'lines')
+export default mongoose.models.line || mongoose.model('line', lineSchema, 'lines')

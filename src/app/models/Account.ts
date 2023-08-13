@@ -14,7 +14,7 @@ export type Account = {
     expires_at: number
 }
 
-const accountSchema = new mongoose.Schema<Account>(
+const accountSchema = new Schema<Account>(
     {
         userId: {
             type: Schema.Types.ObjectId,
@@ -45,4 +45,4 @@ const accountSchema = new mongoose.Schema<Account>(
 
 accountSchema.index({ provider: 1, providerAccountId: 1 }, { unique: true })
 
-export default mongoose.models.Account || mongoose.model('Account', accountSchema, 'accounts')
+export default mongoose.models.account || mongoose.model('account', accountSchema, 'accounts')
