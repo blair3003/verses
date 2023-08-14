@@ -1,7 +1,7 @@
-import VerseModel, { Verse, VerseExpanded } from '@/app/models/Verse'
 import dbConnect from '@/lib/dbConnect'
-import LineModel, { Line } from '../models/Line'
 import getSession from './getSession'
+import VerseModel, { Verse, VerseExpanded } from '@/app/models/Verse'
+import LineModel, { Line } from '../models/Line'
 import UserModel, { User } from '../models/User'
 
 
