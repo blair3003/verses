@@ -1,6 +1,6 @@
-import mongoose, { Schema, Types } from 'mongoose'
+import { model, models, Document, Schema, Types } from 'mongoose'
 
-export type User = {
+export type User = Document & {
     name: string
     email: string
     emailVerified: string
@@ -33,4 +33,4 @@ const userSchema = new Schema<User>(
     }
 )
 
-export default mongoose.models.user || mongoose.model('user', userSchema, 'users')
+export default models.User || model<User>('User', userSchema, 'users')

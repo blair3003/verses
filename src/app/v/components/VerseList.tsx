@@ -1,17 +1,18 @@
+'use client'
+
 import { useState } from 'react'
-import { Verse } from '../models/verse'
-import { Line } from '../models/line'
-import { User } from '../models/user'
+import { VerseExpanded } from '../../models/Verse'
 
 interface VerseListProps {
-    initialVerses: (Verse & {
-        otherUser: User
-        latestLine: Line
-    })[]
+    initialVerses: VerseExpanded
 }
 
 const VerseList = ({ initialVerses }: VerseListProps) => {
     const [verses, setVerses] = useState(initialVerses)
+
+    return (
+        <div>VerseList</div>
+    )
 }
 
 export default VerseList

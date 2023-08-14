@@ -1,6 +1,6 @@
-import mongoose, { Schema, Types } from 'mongoose'
+import { model, models, Document, Schema, Types } from 'mongoose'
 
-export type Session = {
+export type Session = Document & {
     userId: Types.ObjectId
     sessionToken: string
     expires: string
@@ -18,4 +18,4 @@ const sessionSchema = new Schema<Session>(
     }
 )
 
-export default mongoose.models.session || mongoose.model('session', sessionSchema, 'sessions')
+export default models.Session || model<Session>('session', sessionSchema, 'sessions')

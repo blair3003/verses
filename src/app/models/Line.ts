@@ -1,12 +1,11 @@
-import mongoose, { Schema, Types } from 'mongoose'
+import { model, models, Document, Schema, Types } from 'mongoose'
 
-export type Line = {
+export type Line = Document & {
     userId: Types.ObjectId
     verseId: Types.ObjectId
     body: string
     media: string
     readIds: Types.ObjectId[]
-    createdAt: string
 }
 
 const lineSchema = new Schema<Line>(
@@ -31,4 +30,4 @@ const lineSchema = new Schema<Line>(
     }
 )
 
-export default mongoose.models.line || mongoose.model('line', lineSchema, 'lines')
+export default models.Line || model<Line>('Line', lineSchema, 'lines')

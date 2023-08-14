@@ -1,11 +1,11 @@
-import verse, { Verse } from '@/app/models/verse'
+import VerseModel, { Verse, VerseExpanded } from '@/app/models/Verse'
 import dbConnect from '@/lib/dbConnect'
-import line, { Line } from '../models/line'
+import LineModel, { Line } from '../models/Line'
 import getSession from './getSession'
-import user, { User } from '../models/user'
+import UserModel, { User } from '../models/User'
 
 
-const getAllVerses = async (): Promise<Verse[]> => {
+const getAllVerses = async (): Promise<VerseExpanded[]> => {
 
     const session = await getSession()
     if (!session) return []
@@ -13,22 +13,22 @@ const getAllVerses = async (): Promise<Verse[]> => {
     await dbConnect()
 
     try {        
-        const verses: Verse[] = await verse.find({
+        const verses = await VerseModel.find<Verse>({
             userIds: session.userId
-        })
+        }).lean()
         if (!verses.length) return []
     
         const expandedVerses = await Promise.all(
             verses.map(async v => {
-                const [otherUser, latestLine] = await Promise.all([
-                    user.findById<User>(v.userIds.filter(userId => userId !== session.userId)[0]).select('-password').exec(),
-                    line.findById<Line>(v.latestLineId).exec()
+                const [users, latestLine] = await Promise.all([
+                    UserModel.find<User>({ userIds: v.userIds }).select('-password').lean(),
+                    LineModel.findById<Line>(v.latestLineId).lean()
                 ])
-                return { ...v, otherUser: { name: otherUser?.name, image: otherUser?.image }, latestLine }
+                if (!users || !latestLine) return null
+                return { ...v, users, latestLine }
             })
-        )
-    
-        return expandedVerses
+        )    
+        return expandedVerses.filter(Boolean) as VerseExpanded[]
 
     } catch (err) {
         return []

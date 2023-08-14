@@ -1,6 +1,6 @@
-import mongoose, { Schema, Types } from 'mongoose'
+import { model, models, Document, Schema, Types } from 'mongoose'
 
-export type Account = {
+export type Account = Document & {
     userId: Types.ObjectId
     type: string
     provider: string
@@ -45,4 +45,4 @@ const accountSchema = new Schema<Account>(
 
 accountSchema.index({ provider: 1, providerAccountId: 1 }, { unique: true })
 
-export default mongoose.models.account || mongoose.model('account', accountSchema, 'accounts')
+export default models.Account || model<Account>('Account', accountSchema, 'accounts')
