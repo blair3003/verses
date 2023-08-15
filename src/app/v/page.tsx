@@ -1,15 +1,16 @@
 import VerseList from './components/VerseList'
-import getAllVerses from '../services/getAllVerses'
+import getVerses from '../services/getVerses'
 
 export default async function Verses() {
 
-    const verses = await getAllVerses()
+    const verses = await getVerses()
 
 	return (
-		<main>
-			Verse list page
-
-            <VerseList initialVerses={verses} />
-		</main>
+		<>
+			<header>Verses list page</header>
+			<main>
+				<VerseList initialVerses={verses} />
+			</main>
+		</>
 	)
 }

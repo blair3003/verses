@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { VerseExpanded } from '../../models/Verse'
 
 interface VerseListProps {
-    initialVerses: VerseExpanded
+    initialVerses: VerseExpanded[]
 }
 
 const VerseList = ({ initialVerses }: VerseListProps) => {

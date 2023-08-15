@@ -5,7 +5,7 @@ import LineModel, { Line } from '../models/Line'
 import UserModel, { User } from '../models/User'
 
 
-const getAllVerses = async (): Promise<VerseExpanded[]> => {
+const getVerses = async (): Promise<VerseExpanded[]> => {
 
     const session = await getSession()
     if (!session) return []
@@ -13,15 +13,18 @@ const getAllVerses = async (): Promise<VerseExpanded[]> => {
     await dbConnect()
 
     try {        
-        const verses = await VerseModel.find<Verse>({
-            userIds: session.userId
-        }).lean()
+        const verses = await VerseModel
+            .find<Verse>({
+                userIds: session.userId
+            })
+            .sort('createdAt')
+            .lean()
         if (!verses.length) return []
     
         const expandedVerses = await Promise.all(
             verses.map(async v => {
                 const [users, latestLine] = await Promise.all([
-                    UserModel.find<User>({ userIds: v.userIds }).select('-password').lean(),
+                    UserModel.find<User>({ _id: v.userIds }).select('-password').lean(),
                     LineModel.findById<Line>(v.latestLineId).lean()
                 ])
                 if (!users || !latestLine) return null
@@ -35,4 +38,4 @@ const getAllVerses = async (): Promise<VerseExpanded[]> => {
     }
 }
 
-export default getAllVerses
+export default getVerses

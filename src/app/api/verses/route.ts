@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import getAllVerses from '@/app/services/getAllVerses'
+import getAllVerses from '@/app/services/getVerses'
 
 export async function GET(request: Request) {
 

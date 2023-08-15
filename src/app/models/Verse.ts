@@ -14,6 +14,10 @@ export type VerseExpanded = Verse & {
     latestLine: Line
 }
 
+export type VerseExpandedWithLines = VerseExpanded & {
+    lines: Line[]
+}
+
 const verseSchema = new Schema<Verse>(
     {
         userIds: [{
