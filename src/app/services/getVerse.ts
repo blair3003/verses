@@ -14,6 +14,7 @@ const getVerse = async (verseId: string): Promise<VerseExpandedWithLines | null>
     try {        
         const verse = await VerseModel
             .findById<Verse>(verseId)
+            .lean()
         if (!verse) return null
 
         const [users, lines] = await Promise.all([
