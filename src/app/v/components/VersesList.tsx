@@ -7,12 +7,12 @@ interface VerseListProps {
     initialVerses: VerseExpanded[]
 }
 
-const VerseList = ({ initialVerses }: VerseListProps) => {
+const VersesList = ({ initialVerses }: VerseListProps) => {
     const [verses, setVerses] = useState(initialVerses)
 
     return (
-        <div>VerseList</div>
+        <div>VersesList</div>
     )
 }
 
-export default VerseList
+export default VersesList

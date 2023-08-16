@@ -1,5 +1,7 @@
-import VerseList from './components/VerseList'
 import getVerses from '../services/getVerses'
+import VersesList from './components/VersesList'
+import VersesHeader from './components/VersesHeader'
+import NewVerseLink from './components/NewVerseLink'
 
 export default async function Verses() {
 
@@ -7,9 +9,10 @@ export default async function Verses() {
 
 	return (
 		<>
-			<header>Verses list page</header>
+			<VersesHeader />
 			<main>
-				<VerseList initialVerses={verses} />
+				<VersesList initialVerses={verses} />
+				<NewVerseLink />				
 			</main>
 		</>
 	)
