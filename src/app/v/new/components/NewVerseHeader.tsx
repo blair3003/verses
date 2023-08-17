@@ -23,8 +23,8 @@ const NewVerseHeader = ({ userCount }: Props) => {
                     <span className="sr-only">Back to verse list</span>
                 </Link>
                 <div className="">
-                    <h2 className="text-lg leading-5">Select user</h2>
-                    <p className="text-xs leading-4">{userCount} user{userCount !== 1 ? 's' : ''}</p>
+                    <h2 className="text-lg leading-6">Select user</h2>
+                    <p className="text-xs leading-3">{userCount} user{userCount !== 1 ? 's' : ''}</p>
                 </div>
             </div>
         </Header>
