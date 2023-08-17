@@ -49,13 +49,14 @@ const Header = ({ children, options }: Props) => {
                         className="text-white"
                     >
                         <HiEllipsisVertical size={32} />
+                        <span className="sr-only">Options</span>
                     </button>
                     
                     <nav
                         ref={optionsRef}
-                        className={`absolute top-3/4 bg-gray-900 text-white p-4 rounded-md ${toggled ? 'right-6' : 'left-[-9999px]'}`}
+                        className={`absolute top-3/4 right-6 bg-gray-900 text-white overflow-hidden rounded-md transition-max-height duration-500 ${toggled ? 'max-h-screen' : 'max-h-0'}`}
                     >
-                        <ul className="flex flex-col gap-4">
+                        <ul className="flex flex-col gap-4 p-4">
                             {options.map(option => (
                                 <li>
                                     <Link key={option.title} href={option.url}>{option.title}</Link>
