@@ -1,18 +1,4 @@
-import { model, models, Document, Schema, Types } from 'mongoose'
-
-export type Account = Document & {
-    userId: Types.ObjectId
-    type: string
-    provider: string
-    providerAccountId: string
-    id_token: string
-    access_token: string
-    refresh_token: string
-    token_type: string
-    scope: string
-    session_state: string
-    expires_at: number
-}
+import { model, models, Schema } from 'mongoose'
 
 const accountSchema = new Schema<Account>(
     {

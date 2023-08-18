@@ -58,7 +58,7 @@ const Header = ({ children, options }: Props) => {
                     >
                         <ul className="flex flex-col gap-4 p-4">
                             {options.map(option => (
-                                <li>
+                                <li key={option.title}>
                                     <Link key={option.title} href={option.url}>{option.title}</Link>
                                 </li>
                             ))}         

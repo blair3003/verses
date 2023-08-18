@@ -1,9 +1,9 @@
 import dbConnect from '@/lib/dbConnect'
 import getSession from './getSession'
-import VerseModel, { Verse, VerseExpanded } from '@/app/models/Verse'
-import LineModel, { Line } from '../models/Line'
-import UserModel, { User } from '../models/User'
 
+import LineModel from '@/app/models/Line'
+import UserModel from '@/app/models/User'
+import VerseModel from '@/app/models/Verse'
 
 const getVerses = async (): Promise<VerseExpanded[]> => {
 
@@ -14,21 +14,19 @@ const getVerses = async (): Promise<VerseExpanded[]> => {
 
     try {        
         const verses = await VerseModel
-            .find<Verse>({
-                userIds: session.userId
-            })
+            .find<Verse>({ _id: { $in: session.user.verseIds } })
             .sort('createdAt')
             .lean()
         if (!verses.length) return []
     
         const expandedVerses = await Promise.all(
-            verses.map(async v => {
+            verses.map(async verse => {
                 const [users, latestLine] = await Promise.all([
-                    UserModel.find<User>({ _id: v.userIds }).select('-password').lean(),
-                    LineModel.findById<Line>(v.latestLineId).lean()
+                    UserModel.find<User>({ _id: { $in: verse.userIds } }).select('-password').lean(),
+                    LineModel.findById<Line>(verse.latestLineId).lean()
                 ])
                 if (!users || !latestLine) return null
-                return { ...v, users, latestLine }
+                return { ...verse, users, latestLine }
             })
         )    
         return expandedVerses.filter(Boolean) as VerseExpanded[]

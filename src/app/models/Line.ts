@@ -1,12 +1,4 @@
-import { model, models, Document, Schema, Types } from 'mongoose'
-
-export type Line = Document & {
-    userId: Types.ObjectId
-    verseId: Types.ObjectId
-    body: string
-    media: string
-    readIds: Types.ObjectId[]
-}
+import { model, models, Schema } from 'mongoose'
 
 const lineSchema = new Schema<Line>(
     {

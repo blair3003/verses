@@ -1,5 +1,5 @@
-import UserModel, { User } from '@/app/models/User'
 import dbConnect from '@/lib/dbConnect'
+import UserModel from '@/app/models/User'
 
 const getAllUsers = async (): Promise<User[]> => {
 

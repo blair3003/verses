@@ -1,5 +1,3 @@
-import { User } from '@/app/models/User'
-
 interface Props {
     users: User[]
 }
@@ -7,7 +5,18 @@ interface Props {
 const UsersList = ({ users }: Props) => {
 
     return (
-        <div>Users List</div>
+        <div>
+            Users List
+
+            <div>
+                {users.map(user => (
+                    <div key={user._id}>{user.name}</div>
+                ))}
+            </div>
+
+
+
+        </div>
     )
 }
 

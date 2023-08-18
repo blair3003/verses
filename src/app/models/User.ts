@@ -1,13 +1,4 @@
-import { model, models, Document, Schema, Types } from 'mongoose'
-
-export type User = Document & {
-    name: string
-    email: string
-    emailVerified: string
-    password: string
-    image: string
-    verseIds: Types.ObjectId[]
-}
+import { model, models, Schema } from 'mongoose'
 
 const userSchema = new Schema<User>(
     {
