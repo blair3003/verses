@@ -23,10 +23,6 @@ type Line = Doc & {
 	readIds: Types.ObjectId[]
 }
 
-type Session = import('next-auth').Session & {
-    user: User
-}
-
 type User = Doc & {
 	name: string
 	email: string

@@ -1,3 +1,14 @@
-export { default } from 'next-auth/middleware'
+import { withAuth } from 'next-auth/middleware'
 
-export const config = { matcher: [] }
+export default withAuth(
+    function middleware(req) {
+        console.log(req.nextauth.token)
+    }, 
+    {
+        callbacks: {
+            authorized: ({ token }) => !!token
+        }
+    }
+)
+
+export const config = { matcher: ['/v', '/v/new'] }

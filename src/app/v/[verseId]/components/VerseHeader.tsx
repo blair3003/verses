@@ -1,5 +1,4 @@
 import Header from '@/app/components/Header'
-import { User } from '@/app/models/User'
 
 interface Props {
     group: boolean

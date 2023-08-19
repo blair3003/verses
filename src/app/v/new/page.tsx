@@ -1,6 +1,6 @@
 import getAllUsers from '@/app/services/getAllUsers'
 import NewVerseHeader from './components/NewVerseHeader'
-import UsersList from './components/UsersList'
+import UserList from './components/UserList'
 
 export default async function NewVerse() {
 
@@ -10,7 +10,7 @@ export default async function NewVerse() {
 		<>
 			<NewVerseHeader userCount={users.length - 1} />
 			<main>
-				<UsersList users={users} />	
+				<UserList users={users} />	
 			</main>
 		</>
 	)
