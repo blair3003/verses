@@ -6,6 +6,7 @@ const getVerseId = async (userId: string): Promise<string | null> => {
 
     const session = await getSession()
 	if (!session) return null
+    if (session.user.id === userId) return null
 
     await dbConnect()
 

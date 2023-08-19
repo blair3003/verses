@@ -7,7 +7,7 @@ interface Props {
 const UserList = ({ users }: Props) => {
 
     return (
-        <div>
+        <div className="p-6">
             <ul>
                 {users.map(user => (
                     <UserItem key={user._id.toString()} id={user._id.toString()} name={user.name} image={user.image} />

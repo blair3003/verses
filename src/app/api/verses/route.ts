@@ -3,13 +3,6 @@ import getAllVerses from '@/app/services/getVerses'
 import getVerseId from '@/app/services/getVerseId'
 import createNewVerse from '@/app/services/createNewVerse'
 
-export async function GET(request: Request) {
-
-    const verses = await getAllVerses()
-
-    return NextResponse.json(verses)
-}
-
 export async function POST(request: Request) {
 
     const userId: string = await request.json()

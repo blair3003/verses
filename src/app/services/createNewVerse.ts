@@ -7,15 +7,11 @@ const createNewVerse = async (userId: string): Promise<Verse | null> => {
 
     const session = await getSession()
 	if (!session) return null
+    if (session.user.id === userId) return null
 
     await dbConnect()
 
     try {
-
-        console.log(`Creating new verse for users:`)
-        console.log(session.user.id)
-        console.log(userId)
-
         const newVerse: Verse = await VerseModel.create(
             { userIds: [session.user.id, userId] }
         )
@@ -32,7 +28,6 @@ const createNewVerse = async (userId: string): Promise<Verse | null> => {
     } catch (err) {
         return null
     }
-
 }
 
 export default createNewVerse

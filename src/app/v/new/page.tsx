@@ -1,14 +1,14 @@
-import getAllUsers from '@/app/services/getAllUsers'
+import getUsers from '@/app/services/getUsers'
 import NewVerseHeader from './components/NewVerseHeader'
 import UserList from './components/UserList'
 
 export default async function NewVerse() {
 
-    const users = await getAllUsers()
+    const users = await getUsers()
 
 	return (
 		<>
-			<NewVerseHeader userCount={users.length - 1} />
+			<NewVerseHeader userCount={users.length} />
 			<main>
 				<UserList users={users} />	
 			</main>
