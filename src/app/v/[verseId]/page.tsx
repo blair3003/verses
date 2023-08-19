@@ -15,7 +15,7 @@ export default async function Verse({ params: { verseId } }: VerseProps) {
 
 	return (
 		<>
-			<VerseHeader group={verse.group} subject={verse.subject} users={verse.users} />
+			<VerseHeader verse={verse} />
 			<main>
 				Lines and form	
 			</main>
