@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import getAllVerses from '@/app/services/getVerses'
 import getVerseId from '@/app/services/getVerseId'
 import createNewVerse from '@/app/services/createNewVerse'
 
