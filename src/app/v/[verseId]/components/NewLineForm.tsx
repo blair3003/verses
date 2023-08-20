@@ -43,7 +43,7 @@ const NewLineForm = ({ verseId }: Props) => {
                     <button
                         className="rounded-full bg-cyan-500 text-white w-12 h-12 flex items-center justify-center self-end"
                     >
-                        <HiPaperAirplane size={32} />
+                        <HiPaperAirplane size={28} />
                     </button>
                 </div>
             </form>
