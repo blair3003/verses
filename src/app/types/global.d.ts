@@ -1,7 +1,7 @@
-type Doc = import('mongoose').Document
 type Types = import('mongoose').Types
 
-type Account = Doc & {
+type Account = {
+	_id: Types.ObjectId
 	userId: Types.ObjectId
 	type: string
 	provider: string
@@ -15,15 +15,18 @@ type Account = Doc & {
 	expires_at: number
 }
 
-type Line = Doc & {
+type Line = {
+	_id: Types.ObjectId
 	userId: Types.ObjectId
 	verseId: Types.ObjectId
 	body: string
 	media: string
 	readIds: Types.ObjectId[]
+	createdAt: Date
 }
 
-type User = Doc & {
+type User = {
+	_id: Types.ObjectId
 	name: string
 	email: string
 	emailVerified: string
@@ -32,7 +35,8 @@ type User = Doc & {
 	verseIds: Types.ObjectId[]
 }
 
-type Verse = Doc & {
+type Verse = {
+	_id: Types.ObjectId
 	userIds: Types.ObjectId[]
 	latestLineId: Types.ObjectId
 	group: boolean

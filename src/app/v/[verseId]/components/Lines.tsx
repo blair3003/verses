@@ -1,3 +1,5 @@
+import LineSingle from './LineSingle'
+
 interface Props {
     lines: Line[]
 }
@@ -5,7 +7,11 @@ interface Props {
 const Lines = ({ lines }: Props) => {
 
     return (
-        <div className="grow">Lines be here</div>
+        <div className="grow flex flex-col p-6 overflow-y-auto basis-0">
+            {lines.map(line => (
+                <LineSingle key={line._id} line={line} />
+            ))}
+        </div>
     )
 }
 

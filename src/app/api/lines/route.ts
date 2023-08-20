@@ -3,8 +3,6 @@ import createNewLine from '@/app/services/createNewLine'
 
 export async function POST(request: Request) {
 
-    console.log('Received request to post new line')
-
     const { verseId, newLine } = await request.json()
 
     const line = await createNewLine(verseId, newLine)
