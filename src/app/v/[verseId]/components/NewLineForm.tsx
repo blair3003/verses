@@ -16,7 +16,6 @@ const NewLineForm = ({ verseId }: Props) => {
     const newLineRef = useRef<HTMLTextAreaElement | null>(null)
     const newLineValue: string = watch('newLine')
     const { isSubmitting } = formState
-    // const [isSubmitting, setIsSubmitting] = useState(false)
 
     useEffect(() => {
         setFocus('newLine')
@@ -32,32 +31,26 @@ const NewLineForm = ({ verseId }: Props) => {
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault()
-            handleSubmit(onSubmit)()
-            
+            handleSubmit(onSubmit)()            
         }
     }
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 
         try {
-            console.log('now loading...')
-
-            const newLineResponse = await fetch('/api/lines', {
+            const newLine = await fetch('/api/lines', {
                 method: 'POST',
                 body: JSON.stringify({
                     verseId,
                     ...data
                 })
             })
-            if (!newLineResponse.ok) throw new Error('Failed to send new line') 
-
+            if (!newLine.ok) throw new Error('Failed to send new line') 
+            
             setValue('newLine', '')
-
 
         } catch (err) {
             console.error(err)
-        } finally {
-            console.log('finished loading')
         }
     }
 

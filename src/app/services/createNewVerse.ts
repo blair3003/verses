@@ -15,7 +15,7 @@ const createNewVerse = async (userId: string): Promise<Verse | null> => {
         const newVerse: Verse = await VerseModel.create(
             { userIds: [session.user.id, userId] }
         )
-        if (!newVerse) throw new Error('Failed to create verse')
+        if (!newVerse._id) throw new Error('Failed to create verse')
 
         const userUpdateResult = await UserModel.updateMany(
             { _id: { $in: [session.user.id, userId] } },

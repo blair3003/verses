@@ -13,5 +13,5 @@ export async function POST(request: Request) {
         return new NextResponse('Failed to create new line', { status: 500 })
     }
 
-    return NextResponse.json(newLine._id.toString())
+    return NextResponse.json(line)
 }
