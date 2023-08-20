@@ -1,6 +1,8 @@
 import getVerse from '@/app/services/getVerse'
 import VerseHeader from './components/VerseHeader'
 import { notFound } from 'next/navigation'
+import Lines from './components/Lines'
+import NewLineForm from './components/NewLineForm'
 
 interface VerseProps {
     params: {
@@ -16,8 +18,9 @@ export default async function Verse({ params: { verseId } }: VerseProps) {
 	return (
 		<>
 			<VerseHeader verse={verse} />
-			<main>
-				Lines and form	
+			<main className="grow flex flex-col">
+				<Lines lines={verse.lines} />
+				<NewLineForm verseId={verseId} />
 			</main>
 		</>
 	)
