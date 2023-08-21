@@ -3,6 +3,7 @@ import VerseHeader from './components/VerseHeader'
 import { notFound } from 'next/navigation'
 import Lines from './components/Lines'
 import NewLineForm from './components/NewLineForm'
+import getSession from '@/app/services/getSession'
 
 interface VerseProps {
     params: {
