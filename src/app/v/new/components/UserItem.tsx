@@ -4,14 +4,15 @@ import { useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import ProfilePic from '@/app/components/ProfilePic'
 import { PulseLoader } from 'react-spinners'
+import { signIn } from 'next-auth/react'
 
 interface Props {
-    id: string
-    name: string
-    image: string
+    user: User
 }
 
-const UserItem = ({ id, name, image }: Props) => {
+const UserItem = ({ user }: Props) => {
+
+    const { _id, name, image } = user
 
     const router = useRouter()
     const [loading, setLoading] = useState(false)
@@ -22,15 +23,16 @@ const UserItem = ({ id, name, image }: Props) => {
 
         const verse = await fetch('/api/verses', {
             method: 'POST',
-            body: JSON.stringify(id)
+            body: JSON.stringify(_id)
         })
 
         const verseId = await verse.json()
         if (verseId) {
+            // refresh token needed here
             router.push(`/v/${verseId}`)
         }
 
-    }, [id, router])
+    }, [_id, router])
 
     return (
         <li

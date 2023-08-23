@@ -9,11 +9,13 @@ const getUsers = async (): Promise<User[]> => {
 
     await dbConnect()
 
-    const users = await UserModel.find<User>({
-        _id: { $ne: session.user.id }
-    }).select('-password').lean()
+    const users = await UserModel.find<User>({ _id: { $ne: session.user.id } }).select('-password')
 
-    return users as User[]
+    return users.map(user => ({
+        _id: user._id.toString(),
+        name: user.name,
+        image: user.image
+    }))
 }
 
 export default getUsers

@@ -10,7 +10,7 @@ const UserList = ({ users }: Props) => {
         <div className="p-6">
             <ul>
                 {users.map(user => (
-                    <UserItem key={user._id.toString()} id={user._id.toString()} name={user.name} image={user.image} />
+                    <UserItem key={user._id} user={user} />
                 ))}
             </ul>
         </div>

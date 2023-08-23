@@ -5,6 +5,8 @@ export async function POST(request: Request) {
 
     const { verseId, newLine } = await request.json()
 
+    console.log(verseId, newLine)
+
     const line = await createNewLine(verseId, newLine)
 
     if (!line) {
