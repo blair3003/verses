@@ -13,23 +13,39 @@ const getVerses = async (): Promise<VerseExpanded[]> => {
     await dbConnect()
 
     try {        
-        const verses = await VerseModel
-            .find<Verse>({ _id: { $in: session.user.verseIds } })
-            .sort('createdAt')
-            .lean()
+        const verses = await VerseModel.find<Verse>({ _id: { $in: session.user.verseIds } })
         if (!verses.length) return []
     
         const expandedVerses = await Promise.all(
             verses.map(async verse => {
                 const [users, latestLine] = await Promise.all([
-                    UserModel.find<User>({ _id: { $in: verse.userIds } }).select('-password').lean(),
-                    LineModel.findById<Line>(verse.latestLineId).lean()
+                    UserModel.find<User>({ _id: { $in: verse.userIds, $ne: session.user.id } }).select('-password'),
+                    LineModel.findById<Line>(verse.latestLineId)
                 ])
-                if (!users || !latestLine) return null
-                return { ...verse, users, latestLine }
+                return {            
+                    _id: verse._id.toString(),
+                    group: verse.group,
+                    subject: verse.subject,
+                    users: users.map(user => ({
+                        _id: user._id.toString(),
+                        name: user.name,
+                        image: user.image
+                    })),
+                    latestLine: {
+                        _id: latestLine?._id.toString(),
+                        userId: latestLine?.userId.toString(),
+                        readIds: latestLine?.readIds?.map(readId => readId.toString()),
+                        body: latestLine?.body,
+                        media: latestLine?.media,
+                        createdAt: latestLine?.createdAt
+                    }                        
+                }
             })
         )    
-        return expandedVerses.filter(Boolean) as VerseExpanded[]
+        return expandedVerses.filter(verse => verse.latestLine?._id).sort((a, b) => {
+                if (!a.latestLine.createdAt || !b.latestLine.createdAt) return 0
+                return a.latestLine.createdAt.getTime() - b.latestLine.createdAt.getTime()
+        })
 
     } catch (err) {
         return []

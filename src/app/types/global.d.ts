@@ -1,7 +1,7 @@
 type Types = import('mongoose').Types
 
 type Account = {
-	_id?: Types.ObjectId
+	_id: Types.ObjectId
 	userId?: Types.ObjectId
 	type?: string
 	provider?: string
@@ -16,17 +16,17 @@ type Account = {
 }
 
 type Line = {
-	_id?: Types.ObjectId
+	_id: Types.ObjectId
 	userId?: Types.ObjectId
 	verseId?: Types.ObjectId
 	body?: string
 	media?: string
 	readIds?: Types.ObjectId[]
-	createdAt: Date
+	createdAt?: Date
 }
 
 type User = {
-	_id?: Types.ObjectId
+	_id: Types.ObjectId
 	name?: string
 	email?: string
 	emailVerified?: string
@@ -36,7 +36,7 @@ type User = {
 }
 
 type Verse = {
-	_id?: Types.ObjectId
+	_id: Types.ObjectId
 	userIds?: Types.ObjectId[]
 	latestLineId?: Types.ObjectId
 	group?: boolean
@@ -44,7 +44,7 @@ type Verse = {
 }
 
 type VerseExpanded = Verse & {
-	users?: User[]
+	users: User[]
 	latestLine?: Line
 }
 

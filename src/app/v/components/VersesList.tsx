@@ -1,28 +1,22 @@
-'use client'
-
-import { useState } from 'react'
-import { VerseExpanded } from '../../models/Verse'
+import VersesItem from './VersesItem'
 
 interface VerseListProps {
-    initialVerses: VerseExpanded[]
+    verses: VerseExpanded[]
 }
 
-const VersesList = ({ initialVerses }: VerseListProps) => {
-    const [verses, setVerses] = useState(initialVerses)
+const VersesList = ({ verses }: VerseListProps) => {
 
 
-    // type VerseExpanded = Document<any, any, any> & {
-    //     userIds: Types.ObjectId[];
-    //     latestLineId: Types.ObjectId;
-    //     group: boolean;
-    //     subject: string;
-    // } & {
-    //     users: User[];
-    //     latestLine: Line;
-    // }
 
     return (
-        <div>VersesList</div>
+        <div>
+            {verses.map(verse => (
+                <VersesItem
+                    key={verse._id}
+                    verse={verse}                
+                />
+            ))}
+        </div>
     )
 }
 

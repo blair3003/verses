@@ -11,7 +11,7 @@ export default async function Verses() {
 		<>
 			<VersesHeader />
 			<main>
-				<VersesList initialVerses={verses} />
+				<VersesList verses={verses} />
 				<NewVerseLink />				
 			</main>
 		</>

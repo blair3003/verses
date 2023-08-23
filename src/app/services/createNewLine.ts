@@ -1,6 +1,7 @@
 import dbConnect from '@/lib/dbConnect'
 import getSession from './getSession'
 import LineModel from '@/app/models/Line'
+import VerseModel from '@/app/models/Verse'
 
 const createNewLine = async (verseId: string, body: string): Promise<Line | null> => {
 
@@ -15,6 +16,12 @@ const createNewLine = async (verseId: string, body: string): Promise<Line | null
             { userId: session.user.id, verseId, body, readIds: [session.user.id] }
         )
         if (!newLine._id) throw new Error('Failed to create verse')
+
+        const verseUpdateResult = await VerseModel.updateOne(
+            { _id: verseId },
+            { latestLineId: newLine._id }
+        )
+        if (!verseUpdateResult.modifiedCount) throw new Error('Failed to update verse latest line')
 
         return newLine
 
