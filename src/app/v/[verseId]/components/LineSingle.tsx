@@ -17,7 +17,7 @@ const LineSingle = ({ line, isOwner }: Props) => {
                         {body}
                     </div>
                     <div className="text-gray-300 text-xs float-right mt-2 ml-1">
-                        {format(createdAt, 'HH:mm')}
+                        {createdAt && format(createdAt, 'HH:mm')}
                     </div>
                 </div>
             </div>

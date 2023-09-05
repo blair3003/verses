@@ -8,7 +8,7 @@ interface Props {
 const ProfilePic = ({ name = '', image }: Props) => {
 
     return (
-        <div className="relative h-8 w-8 rounded-full overflow-hidden shrink-0">
+        <div className="relative h-10 w-10 rounded-full overflow-hidden shrink-0">
             {image ? 
                 <Image
                     alt={name}

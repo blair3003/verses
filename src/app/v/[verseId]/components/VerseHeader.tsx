@@ -20,7 +20,7 @@ const VerseHeader = async ({ verse }: Props) => {
 
     return (
         <Header options={options}>
-            <div className="flex items-center justify-start gap-6 max-w-xs">
+            <div className="flex items-center justify-start gap-4 max-w-xs">
                 <Link href="/v" className="shrink-0">
                     <HiArrowLeft size={24} />
                     <span className="sr-only">Back to verse list</span>

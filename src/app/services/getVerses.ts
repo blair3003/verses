@@ -43,8 +43,8 @@ const getVerses = async (): Promise<VerseExpanded[]> => {
             })
         )    
         return expandedVerses.filter(verse => verse.latestLine?._id).sort((a, b) => {
-                if (!a.latestLine.createdAt || !b.latestLine.createdAt) return 0
-                return a.latestLine.createdAt.getTime() - b.latestLine.createdAt.getTime()
+                if (!b.latestLine.createdAt || !a.latestLine.createdAt) return 0
+                return b.latestLine.createdAt.getTime() - a.latestLine.createdAt.getTime()
         })
 
     } catch (err) {

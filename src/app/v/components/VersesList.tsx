@@ -6,10 +6,8 @@ interface VerseListProps {
 
 const VersesList = ({ verses }: VerseListProps) => {
 
-
-
     return (
-        <div>
+        <div className="p-6">
             {verses.map(verse => (
                 <VersesItem
                     key={verse._id}
