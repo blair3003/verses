@@ -11,4 +11,4 @@ export default withAuth(
     }
 )
 
-export const config = { matcher: ['/v', '/v/new'] }
+export const config = { matcher: ['/v/:path*'] }

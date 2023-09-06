@@ -9,12 +9,18 @@ const VersesHeader = () => {
         {
             url: '/v/new',
             title: 'New verse'
-        }, {
+        },
+        {
             url: '/v/group',
             title: 'New group'
-        }, {
+        },
+        {
             url: '/settings',
             title: 'Settings'
+        },
+        {
+            url: '/api/auth/signout',
+            title: 'Sign out'
         }
     ]
 

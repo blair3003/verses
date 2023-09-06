@@ -9,6 +9,8 @@ export async function POST(request: Request) {
 
     const line = await createNewLine(verseId, newLine)
 
+    console.log(line)
+
     if (!line) {
         return new NextResponse('Failed to create new line', { status: 500 })
     }

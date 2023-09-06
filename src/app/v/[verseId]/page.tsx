@@ -1,6 +1,6 @@
 import getVerse from '@/app/services/getVerse'
 import VerseHeader from './components/VerseHeader'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import Lines from './components/Lines'
 import NewLineForm from './components/NewLineForm'
 import getSession from '@/app/services/getSession'
@@ -12,6 +12,10 @@ interface VerseProps {
 }
 
 export default async function Verse({ params: { verseId } }: VerseProps) {
+
+	// Below only works if token is refreshed after creating new verse
+	const session = await getSession()
+    if (!session?.user.verseIds?.includes(verseId)) redirect('/v')
 
     const verse = await getVerse(verseId)
     if (!verse) notFound()

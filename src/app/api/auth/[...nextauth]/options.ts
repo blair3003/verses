@@ -1,13 +1,39 @@
 import type { AuthOptions } from 'next-auth'
-
+import bcrypt from 'bcrypt'
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import clientPromise from '@/lib/clientPromise'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
+import CredentialsProvider from 'next-auth/providers/credentials'
+import User from '@/app/models/User'
 
 export const authOptions: AuthOptions = {
     adapter: MongoDBAdapter(clientPromise),
     providers: [
+        CredentialsProvider({
+            name: "Credentials",
+            credentials: {
+                email: {
+                    label: "Email:",
+                    type: "email",
+                },
+                password: {
+                    label: "Password:",
+                    type: "password",
+                }
+            },
+            async authorize(credentials) {
+                if (!credentials?.email || !credentials?.password) throw new Error('Missing Credentials')
+
+                const user = await User.findOne({ email: credentials.email }).exec()
+                if (!user || !user?.password) throw new Error('Invalid Credentials')
+
+                const passwordValid = await bcrypt.compare(credentials.password, user.password)
+                if (!passwordValid) throw new Error('Invalid Credentials')
+
+                return user
+            }
+        }),
         GithubProvider({
             clientId: process.env.GITHUB_ID as string,
             clientSecret: process.env.GITHUB_SECRET as string,
