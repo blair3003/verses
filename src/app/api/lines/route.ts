@@ -5,11 +5,7 @@ export async function POST(request: Request) {
 
     const { verseId, newLine } = await request.json()
 
-    console.log(verseId, newLine)
-
     const line = await createNewLine(verseId, newLine)
-
-    console.log(line)
 
     if (!line) {
         return new NextResponse('Failed to create new line', { status: 500 })

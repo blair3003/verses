@@ -7,9 +7,7 @@ const createNewLine = async (verseId: string, body: string): Promise<Line | null
 
     const session = await getSession()
 	if (!session) return null
-
-    // Below only works if token is refreshed after creating new verse
-    // if (!session.user.verseIds?.includes(verseId)) return null    
+    if (!session.user.verseIds?.includes(verseId)) return null    
 
     await dbConnect()
 

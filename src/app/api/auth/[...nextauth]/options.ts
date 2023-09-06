@@ -44,10 +44,13 @@ export const authOptions: AuthOptions = {
         }),
     ],
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user, session, trigger }) {  
             if (user) {
                 token.id = user.id
-                token.verseIds = user?.verseIds?.map(verseId => verseId.toString())
+                token.verseIds = user.verseIds?.map(verseId => verseId.toString())
+            }
+            if (trigger === 'update' && session?.verseId) {
+                if (!token.verseIds?.includes(session.verseId)) token.verseIds?.push(session.verseId)
             }
             return token
         },

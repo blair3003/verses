@@ -23,8 +23,6 @@ const RegistrationForm = () => {
 
         try {
             setIsLoading(true)
-            console.log(`registering...`)
-            console.log(data)
 
             const newUser = await fetch('/api/register', {
                 method: 'POST',

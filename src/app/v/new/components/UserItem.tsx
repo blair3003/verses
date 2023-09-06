@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import ProfilePic from '@/app/components/ProfilePic'
 import { PulseLoader } from 'react-spinners'
-import { signIn } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 
 interface Props {
     user: User
@@ -15,6 +15,7 @@ const UserItem = ({ user }: Props) => {
     const { _id, name, image } = user
 
     const router = useRouter()
+    const { update } = useSession()
     const [loading, setLoading] = useState(false)
 
     const handleClick = useCallback(async () => {
@@ -28,7 +29,7 @@ const UserItem = ({ user }: Props) => {
 
         const verseId = await verse.json()
         if (verseId) {
-            // refresh token needed here
+            await update({ verseId })
             router.push(`/v/${verseId}`)
         }
 
