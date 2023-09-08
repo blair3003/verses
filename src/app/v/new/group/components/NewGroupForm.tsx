@@ -1,8 +1,10 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { HiArrowRight } from 'react-icons/hi2'
+import { useSession } from 'next-auth/react'
 
 interface Props {
     users: User[]
@@ -12,6 +14,8 @@ const NewGroupForm = ({ users }: Props) => {
 
     const { register, handleSubmit } = useForm<FieldValues>()
     const [isLoading, setIsLoading] = useState(false)
+    const router = useRouter()
+    const { update } = useSession()
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         
@@ -28,6 +32,22 @@ const NewGroupForm = ({ users }: Props) => {
             if (userIds.length) {
                 console.log(`creating a group with name: ${data.name}`)
                 console.log(`creating a group with userIds: ${userIds}`)
+
+                const group = await fetch('/api/groups', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        name: data.name,
+                        userIds
+                    })
+                })
+
+                const verseId = await group.json()
+
+                if (verseId) {
+                    await update({ verseId })
+                    router.push(`/v/${verseId}`)
+                }
+
             }
 
 

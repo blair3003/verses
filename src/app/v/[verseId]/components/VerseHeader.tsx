@@ -25,10 +25,14 @@ const VerseHeader = async ({ verse }: Props) => {
                     <HiArrowLeft size={24} />
                     <span className="sr-only">Back to verse list</span>
                 </Link>
-                <ProfilePic name={partner?.name} image={partner?.image} />
+                <ProfilePic name={verse.group ? verse.subject : partner?.name} image={verse.group ? '' : partner?.image} />
                 <div className="grow overflow-hidden whitespace-nowrap">
-                    <h2 className="text-lg leading-6 overflow-hidden whitespace-nowrap text-ellipsis">{partner?.name}</h2>
-                    <p className="text-xs leading-3">Online</p>
+                    <h2 className="text-lg leading-6 overflow-hidden whitespace-nowrap text-ellipsis">
+                        {verse.group ? verse.subject : partner?.name}
+                    </h2>
+                    <p className="text-xs leading-3">
+                        {verse.group ? 'Group' : 'Online'}
+                    </p>
                 </div>
             </div>
         </Header>

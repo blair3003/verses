@@ -13,11 +13,11 @@ const VersesItem = ({ verse }: Props) => {
             className="flex items-center justify-between gap-4 mb-4"
             href={`/v/${verse._id}`}
         >                
-            <ProfilePic name={verse.users[0].name} image={verse.users[0]?.image} />
+            <ProfilePic name={verse.group ? verse.subject : verse.users[0].name} image={verse.group ? '' : verse.users[0]?.image} />
             <div className="grow overflow-hidden">
                 <div className="flex align-start justify-between">
                     <div className="">
-                        {verse.users[0].name}
+                        {verse.group ? verse.subject : verse.users[0].name}
                     </div>
                     <div className="text-sm text-gray-300">
                         {verse.latestLine?.createdAt && (
