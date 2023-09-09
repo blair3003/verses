@@ -13,7 +13,7 @@ const createNewLine = async (verseId: string, body: string): Promise<Line | null
 
     try {
         const newLine: Line = await LineModel.create(
-            { userId: session.user.id, verseId, body, readIds: [session.user.id] }
+            { userId: session.user.id, verseId, body }
         )
         if (!newLine._id) throw new Error('Failed to create line')
 

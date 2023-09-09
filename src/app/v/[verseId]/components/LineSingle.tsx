@@ -1,5 +1,6 @@
 import ProfilePic from '@/app/components/ProfilePic'
 import { format } from 'date-fns'
+import { HiCheck } from 'react-icons/hi2'
 
 interface Props {
     line: Line
@@ -28,8 +29,15 @@ const LineSingle = ({ line, user, isOwner, isGroup }: Props) => {
                         <div className="text-white text-base inline">
                             {body}
                         </div>
-                        <div className="text-gray-300 text-xs float-right mt-2 ml-1">
-                            {createdAt && format(createdAt, 'HH:mm')}
+                        <div className="float-right mt-2 ml-1 flex items-center gap-1">
+                            <div className="text-gray-300 text-xs">
+                                {createdAt && format(createdAt, 'HH:mm')}
+                            </div>
+                            {isOwner && (
+                                <div className={`${line.readIds?.length ? 'text-cyan-500' : 'text-gray-300'}`}>
+                                    <HiCheck size={12} />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

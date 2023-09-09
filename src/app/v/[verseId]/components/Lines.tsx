@@ -21,20 +21,37 @@ const Lines = ({ lines, users, isGroup }: Props) => {
         }
     }, [lines])
 
+    useEffect(() => {
+        if (!lines?.length) return
+
+        const readLines = async () => {
+            await fetch('/api/read/', {
+                method: 'POST',
+                body: JSON.stringify({
+                    verseId: lines[0].verseId
+                })
+            })
+        }        
+        readLines()
+
+    }, [lines])
+
     return (
         <div
             ref={linesRef}
             className="grow flex flex-col p-6 overflow-y-auto basis-0"
         >
-            {session.data?.user && lines?.map(line => (
-                <LineSingle
-                    key={line._id}
-                    line={line}
-                    user={users.find(user => user._id === line.userId)}
-                    isOwner={line.userId === session.data?.user.id}
-                    isGroup={isGroup}
-                />
-            ))}
+            {session.data?.user && lines?.map(line => {
+                return (
+                    <LineSingle
+                        key={line._id}
+                        line={line}
+                        user={users.find(user => user._id === line.userId)}
+                        isOwner={line.userId === session.data?.user.id}
+                        isGroup={isGroup}
+                    />
+                )
+            })}
         </div>
     )
 }

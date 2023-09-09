@@ -33,6 +33,7 @@ const getVerse = async (verseId: string): Promise<VerseExpandedWithLines | null>
             })),
             lines: lines.map(line => ({
                 _id: line._id.toString(),
+                verseId: verse._id.toString(),
                 userId: line.userId.toString(),
                 readIds: line?.readIds?.map(readId => readId.toString()),
                 body: line.body,
