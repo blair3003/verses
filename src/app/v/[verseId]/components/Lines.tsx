@@ -6,9 +6,11 @@ import { useSession } from 'next-auth/react'
 
 interface Props {
     lines?: Line[]
+    users: User[]
+    isGroup?: boolean
 }
 
-const Lines = ({ lines }: Props) => {
+const Lines = ({ lines, users, isGroup }: Props) => {
 
     const session = useSession()
     const linesRef = useRef<HTMLDivElement | null>(null)
@@ -28,7 +30,9 @@ const Lines = ({ lines }: Props) => {
                 <LineSingle
                     key={line._id}
                     line={line}
+                    user={users.find(user => user._id === line.userId)}
                     isOwner={line.userId === session.data?.user.id}
+                    isGroup={isGroup}
                 />
             ))}
         </div>

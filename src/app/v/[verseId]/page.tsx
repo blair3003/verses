@@ -13,7 +13,6 @@ interface VerseProps {
 
 export default async function Verse({ params: { verseId } }: VerseProps) {
 
-	// Below only works if token is refreshed after creating new verse
 	const session = await getSession()
     if (!session?.user.verseIds?.includes(verseId)) redirect('/v')
 
@@ -24,7 +23,7 @@ export default async function Verse({ params: { verseId } }: VerseProps) {
 		<>
 			<VerseHeader verse={verse} />
 			<main className="grow flex flex-col">
-				<Lines lines={verse.lines} />
+				<Lines lines={verse.lines} users={verse.users} isGroup={verse.group} />
 				<NewLineForm verseId={verseId} />
 			</main>
 		</>

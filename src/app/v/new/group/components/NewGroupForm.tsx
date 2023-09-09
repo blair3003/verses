@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { HiArrowRight } from 'react-icons/hi2'
 import { useSession } from 'next-auth/react'
+import ProfilePic from '@/app/components/ProfilePic'
+import { PulseLoader } from 'react-spinners'
 
 interface Props {
     users: User[]
@@ -64,7 +66,7 @@ const NewGroupForm = ({ users }: Props) => {
                 onSubmit={handleSubmit(onSubmit)}
                 className="p-6"
             >
-                <div>
+                <div className="mb-4">
                     <label
                         htmlFor="name"
                         className="sr-only"
@@ -76,26 +78,34 @@ const NewGroupForm = ({ users }: Props) => {
                         type="text"
                         placeholder="Group name"
                         {...register('name', { required: true })}
+                        className="text-white bg-transparent border-b-2 border-gray-900 w-full"
                     />
-
                 </div>
 
                 <div>
-                    <div className="text-base text-gray-300">
+                    <div className="text-base text-gray-300 mb-4">
                         Participants
                     </div>
                     {users?.map(user => (
-                        <div key={user._id}>
+                        <div
+                            key={user._id}
+                            className="flex items-center justify-between mb-6"
+                        >
                             <label
                                 htmlFor={user._id}
+                                className="flex items-center justify-start gap-4"
                             >
-                                {user.name}
-                            </label>
+                                <ProfilePic name={user.name} image={user.image} />
+                                <div className="text-lg grow overflow-hidden whitespace-nowrap">
+                                    {user.name}
+                                </div>                            
+                            </label>     
                             <input
                                 id={user._id}
                                 type="checkbox"
                                 {...register(user._id)}
-                            />                    
+                                className="accent-cyan-500"
+                            />               
                         </div>
                     ))}
                 </div>
@@ -103,9 +113,11 @@ const NewGroupForm = ({ users }: Props) => {
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="fixed bottom-6 right-6 text-gray-950 bg-cyan-500 rounded-full p-2"
-                >                
-                    <HiArrowRight size={24} />
+                    className="fixed bottom-6 right-6 rounded-full bg-cyan-500 text-gray-950 w-12 h-12 flex items-center justify-center"
+                >
+                    {!isLoading && <HiArrowRight size={28} />}
+                    <PulseLoader loading={isLoading} color="#FFFFFF" size={6} />                
+                    
                     <span className="sr-only">New group</span>
                 </button>
             </form>        

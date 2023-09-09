@@ -16,10 +16,18 @@ const VerseHeader = async ({ verse }: Props) => {
             title: 'View contact'
         }
     ]
+
+    const groupOptions = [
+        {
+            url: '/group',
+            title: 'View group details'
+        }
+    ]
+
     const partner = await getPartner(verse)
 
     return (
-        <Header options={options}>
+        <Header options={verse.group ? groupOptions : options}>
             <div className="flex items-center justify-start gap-4 max-w-xs">
                 <Link href="/v" className="shrink-0">
                     <HiArrowLeft size={24} />

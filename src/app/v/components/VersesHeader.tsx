@@ -11,7 +11,7 @@ const VersesHeader = () => {
             title: 'New verse'
         },
         {
-            url: '/v/group',
+            url: '/v/new/group',
             title: 'New group'
         },
         {

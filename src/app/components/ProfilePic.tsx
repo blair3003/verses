@@ -3,12 +3,13 @@ import Image from 'next/image'
 interface Props {
     name?: string
     image?: string
+    size?: 'sm' | 'md'
 }
 
-const ProfilePic = ({ name = '', image }: Props) => {
+const ProfilePic = ({ name = '', image, size = 'md' }: Props) => {
 
     return (
-        <div className="relative h-10 w-10 rounded-full overflow-hidden shrink-0">
+        <div className={`relative rounded-full overflow-hidden shrink-0 ${size === 'md' ? 'h-10 w-10' : 'h-6 w-6'}`}>
             {image ? 
                 <Image
                     alt={name}
