@@ -85,12 +85,12 @@ const NewGroupForm = ({ users }: Props) => {
                         <div className="text-base text-gray-300">
                             Participants
                         </div>
-                        <button
+                        {/* <button
                             onClick={() => reset()}
                             className="text-gray-950 text-sm bg-gray-300 rounded-full px-2"
                         >
                             clear                            
-                        </button>
+                        </button> */}
                     </div>
                     <SearchUser searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
                     {filteredUsers?.map(user => (
