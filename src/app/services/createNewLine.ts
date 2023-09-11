@@ -3,7 +3,7 @@ import getSession from './getSession'
 import LineModel from '@/app/models/Line'
 import VerseModel from '@/app/models/Verse'
 
-const createNewLine = async (verseId: string, body: string): Promise<Line | null> => {
+const createNewLine = async (verseId: string, body: string, media: string): Promise<Line | null> => {
 
     const session = await getSession()
 	if (!session) return null
@@ -13,7 +13,7 @@ const createNewLine = async (verseId: string, body: string): Promise<Line | null
 
     try {
         const newLine: Line = await LineModel.create(
-            { userId: session.user.id, verseId, body }
+            { userId: session.user.id, verseId, body, media }
         )
         if (!newLine._id) throw new Error('Failed to create line')
 

@@ -3,9 +3,9 @@ import createNewLine from '@/app/services/createNewLine'
 
 export async function POST(request: Request) {
 
-    const { verseId, newLine } = await request.json()
+    const { verseId, newLine, media } = await request.json()
 
-    const line = await createNewLine(verseId, newLine)
+    const line = await createNewLine(verseId, newLine, media)
 
     if (!line) {
         return new NextResponse('Failed to create new line', { status: 500 })
