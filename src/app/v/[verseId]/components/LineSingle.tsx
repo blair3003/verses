@@ -1,16 +1,20 @@
+'use client'
+
 import Image from 'next/image'
 import { format } from 'date-fns'
 import { HiCheck } from 'react-icons/hi2'
 import ProfilePic from '@/app/components/ProfilePic'
+import { Dispatch, SetStateAction } from 'react'
 
 interface Props {
     line: Line
     user?: User
     isOwner?: boolean
     isGroup?: boolean
+    setImage: Dispatch<SetStateAction<string>>
 }
 
-const LineSingle = ({ line, user, isOwner, isGroup }: Props) => {
+const LineSingle = ({ line, user, isOwner, isGroup, setImage }: Props) => {
 
     const { body, media, createdAt } = line
 
@@ -21,6 +25,7 @@ const LineSingle = ({ line, user, isOwner, isGroup }: Props) => {
                     <ProfilePic name={user?.name} image={user?.image} size="sm"/>
                 )}
                 <div className={`p-2 rounded-lg ${isOwner ? 'bg-cyan-800' : 'bg-gray-800'}`}>
+                    
                     {isGroup && !isOwner && (
                         <div className="text-cyan-500 text-base">
                             {user?.name}
@@ -33,7 +38,8 @@ const LineSingle = ({ line, user, isOwner, isGroup }: Props) => {
                                 src={media}
                                 height={500}
                                 width={500}
-                                className="rounded-lg"
+                                onClick={() => setImage(media)}
+                                className="rounded-lg cursor-pointer"
                             />
                         </div>
                     )}
