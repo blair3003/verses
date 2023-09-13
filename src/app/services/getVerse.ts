@@ -19,7 +19,7 @@ const getVerse = async (verseId: string): Promise<VerseExpandedWithLines | null>
 
         const [users, lines] = await Promise.all([
             UserModel.find<User>({ _id: { $in: verse.userIds } }).select('-password'),
-            LineModel.find<Line>({ verseId: verse._id }).select('userId body readIds createdAt').sort('createdAt')
+            LineModel.find<Line>({ verseId: verse._id }).sort('createdAt')
         ])
 
         return {            
@@ -37,6 +37,7 @@ const getVerse = async (verseId: string): Promise<VerseExpandedWithLines | null>
                 userId: line.userId.toString(),
                 readIds: line?.readIds?.map(readId => readId.toString()),
                 body: line.body,
+                media: line.media,
                 createdAt: line.createdAt
             }))
         }

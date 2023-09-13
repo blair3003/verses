@@ -19,7 +19,7 @@ const Lines = ({ lines, users, isGroup }: Props) => {
         if (linesRef.current) {
             linesRef.current.scrollTop = linesRef.current.scrollHeight
         }
-    }, [lines])
+    }, [linesRef.current])
 
     useEffect(() => {
         if (!lines?.length) return

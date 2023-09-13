@@ -1,6 +1,7 @@
-import ProfilePic from '@/app/components/ProfilePic'
+import Image from 'next/image'
 import { format } from 'date-fns'
 import { HiCheck } from 'react-icons/hi2'
+import ProfilePic from '@/app/components/ProfilePic'
 
 interface Props {
     line: Line
@@ -11,11 +12,11 @@ interface Props {
 
 const LineSingle = ({ line, user, isOwner, isGroup }: Props) => {
 
-    const { body, createdAt } = line
+    const { body, media, createdAt } = line
 
     return (
         <>
-            <div className={`flex mb-2 gap-2 ${isOwner ? 'justify-end' : 'justify-start'}`}>
+            <div className={`flex mb-2 gap-2 ${isOwner ? 'justify-end ml-8' : 'justify-start mr-8'}`}>
                 {isGroup && !isOwner && (
                     <ProfilePic name={user?.name} image={user?.image} size="sm"/>
                 )}
@@ -23,6 +24,17 @@ const LineSingle = ({ line, user, isOwner, isGroup }: Props) => {
                     {isGroup && !isOwner && (
                         <div className="text-cyan-500 text-base">
                             {user?.name}
+                        </div>
+                    )}
+                    {media && (
+                        <div className="mb-2">
+                            <Image
+                                alt='File upload'
+                                src={media}
+                                height={500}
+                                width={500}
+                                className="rounded-lg"
+                            />
                         </div>
                     )}
                     <div>
