@@ -5,11 +5,15 @@ declare module "next-auth" {
     interface Session {
         user: {
             id?: string
+            name?: string
+            image?: string
             verseIds?: string[]
         } & DefaultSession
     }
 
     interface User extends DefaultUser {
+        name?: string
+        image?: string
         verseIds?: string[]
     }
 }

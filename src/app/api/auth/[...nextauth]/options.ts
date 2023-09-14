@@ -47,6 +47,7 @@ export const authOptions: AuthOptions = {
         async jwt({ token, user, session, trigger }) {  
             if (user) {
                 token.id = user.id
+                token.name = user.name
                 token.verseIds = user.verseIds?.map(verseId => verseId.toString())
             }
             if (trigger === 'update' && session?.verseId) {
@@ -57,6 +58,7 @@ export const authOptions: AuthOptions = {
         async session({ session, token }) {
             if (session?.user) {
                 session.user.id = token.id as string
+                session.user.name = token.name as string
                 session.user.verseIds = token.verseIds
             }
             return session

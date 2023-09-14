@@ -26,12 +26,12 @@ type Line = {
 }
 
 type User = {
-	_id: Types.ObjectId
-	name: string
+	_id?: Types.ObjectId
+	name?: string
 	email?: string
 	emailVerified?: string
 	password?: string
-	image: string
+	image?: string
 	verseIds?: Types.ObjectId[]
 }
 
