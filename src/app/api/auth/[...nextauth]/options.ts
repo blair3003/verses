@@ -50,8 +50,13 @@ export const authOptions: AuthOptions = {
                 token.name = user.name
                 token.verseIds = user.verseIds?.map(verseId => verseId.toString())
             }
-            if (trigger === 'update' && session?.verseId) {
-                if (!token.verseIds?.includes(session.verseId)) token.verseIds?.push(session.verseId)
+            if (trigger === 'update') {
+                if (session?.verseId) {
+                    if (!token.verseIds?.includes(session.verseId)) token.verseIds?.push(session.verseId)
+                }
+                if (session?.name) token.name = session.name
+                if (session?.email) token.email = session.email
+                if (session?.image) token.image = session.image
             }
             return token
         },

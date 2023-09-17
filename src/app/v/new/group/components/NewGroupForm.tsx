@@ -21,7 +21,7 @@ const NewGroupForm = ({ users }: Props) => {
     const { update } = useSession()
     const { register, handleSubmit, reset } = useForm<FieldValues>()
 
-    const filteredUsers = searchTerm ? users.filter(user => user.name.toLowerCase().includes(searchTerm.toLowerCase())) : users
+    const filteredUsers = searchTerm ? users.filter(user => user.name?.toLowerCase().includes(searchTerm.toLowerCase())) : users
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         

@@ -38,7 +38,7 @@ const Header = ({ children, options }: Props) => {
     }, [])
 
     return (
-        <header className="relative flex items-center justify-between p-6 border-b-2 border-cyan-500">
+        <header className="relative flex items-center justify-between px-6 h-16 border-b-2 border-cyan-500">
             {children}
 
             {options?.length &&
