@@ -49,5 +49,5 @@ type VerseExpanded = Verse & {
 }
 
 type VerseExpandedWithLines = VerseExpanded & {
-	lines?: Line[]
+	lines: Line[]
 }

@@ -49,7 +49,7 @@ const LineSingle = ({ line, user, isOwner, isGroup, setImage }: Props) => {
                         </div>
                         <div className="float-right mt-2 ml-1 flex items-center gap-1">
                             <div className="text-gray-300 text-xs">
-                                {createdAt && format(createdAt, 'HH:mm')}
+                                {createdAt && format(new Date(createdAt), 'HH:mm')}
                             </div>
                             {isOwner && (
                                 <div className={`${line.readIds?.length ? 'text-cyan-500' : 'text-gray-300'}`}>

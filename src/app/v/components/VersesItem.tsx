@@ -23,7 +23,7 @@ const VersesItem = ({ verse }: Props) => {
                         {verse.latestLine?.createdAt && (
                             isToday(verse.latestLine.createdAt) ? format(verse.latestLine.createdAt, 'HH:mm') :
                             isYesterday(verse.latestLine.createdAt) ? 'Yesterday' :
-                            format(verse.latestLine.createdAt, 'dd/MM/yyyy')
+                            format(new Date(verse.latestLine.createdAt), 'dd/MM/yyyy')
                         )}
                     </div>
                 </div>
