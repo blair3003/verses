@@ -23,7 +23,7 @@ export default async function Verse({ params: { verseId } }: VerseProps) {
 		<>
 			<VerseHeader verse={verse} />
 			<main className="grow flex flex-col">
-				<Lines verseId={verseId} lines={verse.lines} users={verse.users} isGroup={verse.group} />
+				<Lines userId={session.user.id} verseId={verseId} lines={verse.lines} isGroup={verse.group} />
 				<NewLineForm verseId={verseId} />
 			</main>
 		</>

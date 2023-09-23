@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { format, isToday, isYesterday } from 'date-fns'
 import ProfilePic from '@/app/components/ProfilePic'
@@ -11,7 +13,7 @@ const VersesItem = ({ verse }: Props) => {
     return (
         <Link
             className="flex items-center justify-between gap-4 mb-4"
-            href={`/v/${verse._id}`}
+            href={`/v/${verse._id.toString()}`}
         >                
             <ProfilePic name={verse.group ? verse.subject : verse.users[0].name} image={verse.group ? '' : verse.users[0]?.image} />
             <div className="grow overflow-hidden">
@@ -21,8 +23,8 @@ const VersesItem = ({ verse }: Props) => {
                     </div>
                     <div className="text-sm text-gray-300">
                         {verse.latestLine?.createdAt && (
-                            isToday(verse.latestLine.createdAt) ? format(verse.latestLine.createdAt, 'HH:mm') :
-                            isYesterday(verse.latestLine.createdAt) ? 'Yesterday' :
+                            isToday(new Date(verse.latestLine.createdAt)) ? format(new Date(verse.latestLine.createdAt), 'HH:mm') :
+                            isYesterday(new Date(verse.latestLine.createdAt)) ? 'Yesterday' :
                             format(new Date(verse.latestLine.createdAt), 'dd/MM/yyyy')
                         )}
                     </div>

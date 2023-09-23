@@ -20,11 +20,22 @@ const createNewLine = async (verseId: string, body: string, media: string): Prom
 
         await pusherServer.trigger(verseId, 'lines:new', newLine)
 
-        const verseUpdateResult = await VerseModel.updateOne(
-            { _id: verseId },
+        const verse: Verse | null = await VerseModel.findByIdAndUpdate(
+            verseId,
             { latestLineId: newLine._id }
         )
-        if (!verseUpdateResult.modifiedCount) throw new Error('Failed to update verse latest line')
+        if (!verse?._id) throw new Error('Failed to update verse latest line')
+
+        if (!verse.latestLineId) {
+            verse.userIds?.forEach(userId => {
+                pusherServer.trigger(userId.toString(), 'verses:new', {
+                    _id: verseId,
+                    latestLine: newLine,
+                    users: [session.user]
+                })
+            })
+        }
+
 
         // pusher update to verses list
 

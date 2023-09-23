@@ -1,6 +1,7 @@
 import dbConnect from '@/lib/dbConnect'
 import getSession from './getSession'
 import LineModel from '@/app/models/Line'
+import { pusherServer } from '@/lib/pusher'
 
 const setRead = async (verseId: string): Promise<boolean> => {
 
@@ -15,6 +16,13 @@ const setRead = async (verseId: string): Promise<boolean> => {
             { $addToSet: { readIds: session.user.id } }
         )
         if (!lines.modifiedCount) return false
+
+        await pusherServer.trigger(verseId!, 'lines:read', session.user.id)
+
+        // await pusherServer.trigger(currentUser.email, 'verse:update', {
+        //     id: conversationId,
+        //     messages: [updatedMessage]
+        //   })
         
         return true
 

@@ -1,9 +1,14 @@
+import { redirect } from 'next/navigation'
 import getVerses from '../services/getVerses'
 import VersesList from './components/VersesList'
 import VersesHeader from './components/VersesHeader'
 import NewVerseLink from './components/NewVerseLink'
+import getSession from '../services/getSession'
 
 export default async function Verses() {
+
+	const session = await getSession()
+	if (!session?.user.id) redirect('/login')
 
     const verses = await getVerses()
 
@@ -11,7 +16,7 @@ export default async function Verses() {
 		<>
 			<VersesHeader />
 			<main>
-				<VersesList verses={verses} />
+				<VersesList verses={verses} userId={session.user.id}/>
 				<NewVerseLink />				
 			</main>
 		</>

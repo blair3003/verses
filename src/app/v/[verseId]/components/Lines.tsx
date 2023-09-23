@@ -7,13 +7,13 @@ import ImageDialog from './ImageDialog'
 import { pusherClient } from '@/lib/pusher'
 
 interface Props {
+    userId?: string
     verseId: string
     lines: Line[]
-    users: User[]
     isGroup?: boolean
 }
 
-const Lines = ({ verseId, lines, users, isGroup }: Props) => {
+const Lines = ({ userId, verseId, lines, isGroup }: Props) => {
 
     const session = useSession()
     const linesRef = useRef<HTMLDivElement | null>(null)
@@ -27,13 +27,26 @@ const Lines = ({ verseId, lines, users, isGroup }: Props) => {
         })
     }
 
+    const readLinePusher = (readId: string) => {
+        setLatestLines(existingLines =>            
+            existingLines.map(existingLine => {
+                if ((existingLine.userId === userId) && (userId !== readId)) {
+                    if (!existingLine.readIds?.includes(readId)) existingLine.readIds?.push(readId)
+                }
+                return existingLine
+            })
+        )                
+    }
+
     useEffect(() => {
         pusherClient.subscribe(verseId)
         pusherClient.bind('lines:new', newLinePusher)
+        pusherClient.bind('lines:read', readLinePusher)
 
         return () => {
             pusherClient.unsubscribe(verseId)
             pusherClient.unbind('lines:new', newLinePusher)
+            pusherClient.unbind('lines:read', readLinePusher)
         }
     }, [verseId])
 
@@ -45,6 +58,7 @@ const Lines = ({ verseId, lines, users, isGroup }: Props) => {
 
     useEffect(() => {
         if (!latestLines?.length) return
+        if ((latestLines[latestLines.length - 1].userId === userId) || (latestLines[latestLines.length - 1].readIds?.includes(userId))) return
 
         const readLines = async () => {
             await fetch('/api/read/', {
@@ -56,7 +70,7 @@ const Lines = ({ verseId, lines, users, isGroup }: Props) => {
         }        
         readLines()
 
-    }, [latestLines, verseId])
+    }, [latestLines.length, verseId])
 
     return (
         <div
@@ -70,7 +84,7 @@ const Lines = ({ verseId, lines, users, isGroup }: Props) => {
                     <LineSingle
                         key={line._id}
                         line={line}
-                        user={users.find(user => user._id === line.userId)}
+                        user={session.data?.user}
                         isOwner={line.userId === session.data?.user.id}
                         isGroup={isGroup}
                         setImage={setImage}
