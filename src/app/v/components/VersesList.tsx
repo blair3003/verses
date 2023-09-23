@@ -28,15 +28,16 @@ const VersesList = ({ verses, userId }: VerseListProps) => {
         })
     }
 
-    const readVersePusher = (readId: string) => {
-        // setExistingVerses(existingLines =>            
-        //     existingLines.map(existingLine => {
-        //         if ((existingLine.userId === userId) && (userId !== readId)) {
-        //             if (!existingLine.readIds?.includes(readId)) existingLine.readIds?.push(readId)
-        //         }
-        //         return existingLine
-        //     })
-        // )                
+    const updatedVersePusher = (updatedVerse: VerseExpanded) => {
+        setExistingVerses(existingVerses =>            
+            existingVerses.map(existingVerse => {
+                if ((existingVerse._id === updatedVerse._id)) {
+                    existingVerse.latestLine = updatedVerse.latestLine
+                    return existingVerse
+                }
+                return existingVerse
+            })
+        )                
     }
 
     useEffect(() => {
@@ -51,12 +52,12 @@ const VersesList = ({ verses, userId }: VerseListProps) => {
 
         pusherClient.subscribe(userId)
         pusherClient.bind('verses:new', newVersePusher)
-        // pusherClient.bind('verses:read', readVersePusher)
+        pusherClient.bind('verses:update', updatedVersePusher)
 
         return () => {
             pusherClient.unsubscribe(userId)
             pusherClient.unbind('verses:new', newVersePusher)
-            // pusherClient.unbind('verses:read', readVersePusher)
+            pusherClient.unbind('verses:update', updatedVersePusher)
         }
         
     }, [userId])

@@ -36,8 +36,15 @@ const createNewLine = async (verseId: string, body: string, media: string): Prom
             })
         }
 
-
         // pusher update to verses list
+        if (verse.userIds?.length) {
+            verse.userIds.map(userId => {
+                pusherServer.trigger(userId.toString()!, 'verses:update', {
+                    _id: verseId,
+                    latestLine: newLine
+                })
+            })
+        }
 
         return newLine        
 
