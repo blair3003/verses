@@ -59,7 +59,7 @@ const Lines = ({ userId, verseId, lines, isGroup }: Props) => {
     useEffect(() => {
         if (!latestLines?.length) return
         if ((latestLines[latestLines.length - 1].userId === userId) || (latestLines[latestLines.length - 1].readIds?.includes(userId))) return
-
+        
         const readLines = async () => {
             await fetch('/api/read/', {
                 method: 'POST',

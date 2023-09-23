@@ -37,7 +37,7 @@ const UserItem = ({ user }: Props) => {
 
     return (
         <li
-            className="flex items-center justify-start gap-4 mb-6"
+            className="flex items-center justify-start gap-4 mb-6 cursor-pointer"
             onClick={handleClick}
         >
             <ProfilePic name={name} image={image} />

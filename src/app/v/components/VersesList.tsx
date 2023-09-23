@@ -68,7 +68,8 @@ const VersesList = ({ verses, userId }: VerseListProps) => {
             {existingVerses.map(verse => (
                 <VersesItem
                     key={verse._id}
-                    verse={verse}                
+                    verse={verse}
+                    userId={userId}                
                 />
             ))}
         </div>

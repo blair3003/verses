@@ -6,9 +6,10 @@ import ProfilePic from '@/app/components/ProfilePic'
 
 interface Props {
     verse: VerseExpanded
+    userId: string
 }
 
-const VersesItem = ({ verse }: Props) => {
+const VersesItem = ({ verse, userId }: Props) => {
 
     return (
         <Link
@@ -21,7 +22,7 @@ const VersesItem = ({ verse }: Props) => {
                     <div className="">
                         {verse.group ? verse.subject : verse.users[0].name}
                     </div>
-                    <div className="text-sm text-gray-300">
+                    <div className={`text-sm text-gray-300`}>
                         {verse.latestLine?.createdAt && (
                             isToday(new Date(verse.latestLine.createdAt)) ? format(new Date(verse.latestLine.createdAt), 'HH:mm') :
                             isYesterday(new Date(verse.latestLine.createdAt)) ? 'Yesterday' :
@@ -29,8 +30,13 @@ const VersesItem = ({ verse }: Props) => {
                         )}
                     </div>
                 </div>
-                <div className="text-sm text-gray-300 overflow-hidden whitespace-nowrap text-ellipsis">
-                    {verse.latestLine?.body}
+                <div className="flex align-start justify-between">
+                    <div className="text-sm text-gray-300 overflow-hidden whitespace-nowrap text-ellipsis grow">
+                        {verse.latestLine?.body}
+                    </div>
+                    <div className="text-sm text-cyan-500">
+                        {(verse.latestLine?.userId.toString() !== userId) && (!verse.latestLine?.readIds?.length) ? 'New message!' : null}
+                    </div>
                 </div>
             </div>
         </Link>
