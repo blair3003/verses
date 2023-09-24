@@ -56,11 +56,11 @@ const ProfileForm = () => {
         setValue('name', profile.name)
         setValue('email', profile.email)
         setProfileImage(profile.image)
-    }, [profile])
+    }, [profile, setValue])
 
     useEffect(() => {
         setValue('image', profileImage)
-    }, [profileImage])
+    }, [profileImage, setValue])
 
     const onUpload = (result: any) => {
         if (result?.info?.secure_url) {

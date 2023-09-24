@@ -21,25 +21,27 @@ const Lines = ({ userId, verseId, lines, users, isGroup }: Props) => {
     const [image, setImage] = useState('')
     const [latestLines, setLatestLines] = useState(lines)
 
-    const newLinePusher = (newLine: Line) => {
-        setLatestLines(existingLines => {
-            if (existingLines.find(line => line._id === newLine._id)) return existingLines
-            return [...existingLines, newLine]
-        })
-    }
-
-    const readLinePusher = (readId: string) => {
-        setLatestLines(existingLines =>            
-            existingLines.map(existingLine => {
-                if ((existingLine.userId === userId) && (userId !== readId)) {
-                    if (!existingLine.readIds?.includes(readId)) existingLine.readIds?.push(readId)
-                }
-                return existingLine
-            })
-        )                
-    }
-
+    
     useEffect(() => {
+
+        const newLinePusher = (newLine: Line) => {
+            setLatestLines(existingLines => {
+                if (existingLines.find(line => line._id === newLine._id)) return existingLines
+                return [...existingLines, newLine]
+            })
+        }
+    
+        const readLinePusher = (readId: string) => {
+            setLatestLines(existingLines =>            
+                existingLines.map(existingLine => {
+                    if ((existingLine.userId === userId) && (userId !== readId)) {
+                        if (!existingLine.readIds?.includes(readId)) existingLine.readIds?.push(readId)
+                    }
+                    return existingLine
+                })
+            )                
+        }
+
         pusherClient.subscribe(verseId)
         pusherClient.bind('lines:new', newLinePusher)
         pusherClient.bind('lines:read', readLinePusher)
@@ -49,13 +51,13 @@ const Lines = ({ userId, verseId, lines, users, isGroup }: Props) => {
             pusherClient.unbind('lines:new', newLinePusher)
             pusherClient.unbind('lines:read', readLinePusher)
         }
-    }, [verseId])
+    }, [verseId, userId])
 
     useEffect(() => {
         if (linesRef.current) {
             linesRef.current.scrollTop = linesRef.current.scrollHeight
         }
-    }, [linesRef.current, latestLines.length])
+    }, [latestLines.length])
 
     useEffect(() => {
         if (!latestLines?.length) return
@@ -71,7 +73,7 @@ const Lines = ({ userId, verseId, lines, users, isGroup }: Props) => {
         }        
         readLines()
 
-    }, [latestLines.length, verseId])
+    }, [latestLines.length, latestLines, userId, verseId])
 
     return (
         <div

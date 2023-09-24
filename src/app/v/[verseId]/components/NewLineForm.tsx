@@ -33,7 +33,7 @@ const NewLineForm = ({ verseId }: Props) => {
 
     useEffect(() => {
         setValue('media', media)
-    }, [media])
+    }, [media, setValue])
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === 'Enter' && !e.shiftKey) {

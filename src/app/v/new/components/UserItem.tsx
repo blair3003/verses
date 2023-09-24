@@ -33,7 +33,7 @@ const UserItem = ({ user }: Props) => {
             router.push(`/v/${verseId}`)
         }
 
-    }, [_id, router])
+    }, [_id, router, update])
 
     return (
         <li

@@ -35,7 +35,7 @@ const Header = ({ children, options }: Props) => {
             document.removeEventListener('mousedown', listener)
             document.removeEventListener('touchstart', listener)
         }
-    }, [])
+    }, [listener])
 
     return (
         <header className="relative flex items-center justify-between px-6 h-16 border-b-2 border-cyan-500">

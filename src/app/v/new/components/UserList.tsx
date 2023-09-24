@@ -11,7 +11,7 @@ interface Props {
 const UserList = ({ users }: Props) => {
 
     const [searchTerm, setSearchTerm] = useState('')
-    const filteredUsers = searchTerm ? users.filter(user => user.name.toLowerCase().includes(searchTerm.toLowerCase())) : users
+    const filteredUsers = searchTerm ? users.filter(user => user.name?.toLowerCase().includes(searchTerm.toLowerCase())) : users
 
     return (
         <div className="px-6">

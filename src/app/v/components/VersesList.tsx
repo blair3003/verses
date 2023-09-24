@@ -13,40 +13,39 @@ interface VerseListProps {
 const VersesList = ({ verses, userId }: VerseListProps) => {    
 
     const [existingVerses, setExistingVerses] = useState(verses)
-    const { update } = useSession()
-
-    const refreshToken = async (newVerse: VerseExpanded) => {
-        await update({ verseId: newVerse._id.toString() })
-    }
-
-    const newVersePusher = async (newVerse: VerseExpanded) => {
-        setExistingVerses(existingVerses => {
-            if (existingVerses.find(verse => verse._id === newVerse._id)) {
-                return existingVerses
-            }            
-            return [newVerse, ...existingVerses]
-        })
-    }
-
-    const updatedVersePusher = (updatedVerse: VerseExpanded) => {
-        setExistingVerses(existingVerses =>            
-            existingVerses.map(existingVerse => {
-                if ((existingVerse._id === updatedVerse._id)) {
-                    existingVerse.latestLine = updatedVerse.latestLine
-                    return existingVerse
-                }
-                return existingVerse
-            })
-        )                
-    }
-
+    const { update } = useSession()    
+    
     useEffect(() => {
+        const refreshToken = async (newVerse: VerseExpanded) => {
+            await update({ verseId: newVerse._id.toString() })
+        }
         if (existingVerses.length) {
             refreshToken(existingVerses[0])
         }
-    }, [existingVerses.length])
-
+    }, [existingVerses.length, existingVerses, update])
+    
     useEffect(() => {
+        
+        const newVersePusher = async (newVerse: VerseExpanded) => {
+            setExistingVerses(existingVerses => {
+                if (existingVerses.find(verse => verse._id === newVerse._id)) {
+                    return existingVerses
+                }            
+                return [newVerse, ...existingVerses]
+            })
+        }
+        
+        const updatedVersePusher = (updatedVerse: VerseExpanded) => {
+            setExistingVerses(existingVerses =>            
+                existingVerses.map(existingVerse => {
+                    if ((existingVerse._id === updatedVerse._id)) {
+                        existingVerse.latestLine = updatedVerse.latestLine
+                        return existingVerse
+                    }
+                    return existingVerse
+                })
+            )                
+        }
 
         pusherClient.subscribe(userId)
         pusherClient.bind('verses:new', newVersePusher)
