@@ -6,11 +6,8 @@ export default async function Home() {
 		<main>
 			<div className="flex flex-col items-center justify-center gap-4 h-screen">
 				<Link
-					href="/api/auth/signin"
-				>Login</Link>
-				<Link
-					href="/register"
-				>Register</Link>
+					href="/v"
+				>Verses</Link>
 			</div>
 		</main>
 	)

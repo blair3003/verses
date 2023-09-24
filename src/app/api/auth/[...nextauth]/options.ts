@@ -67,9 +67,6 @@ export const authOptions: AuthOptions = {
                 session.user.verseIds = token.verseIds
             }
             return session
-        },
-        async signIn() {
-            return '/v'
         }
     },
     session: {
