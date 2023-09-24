@@ -10,10 +10,11 @@ interface Props {
     userId?: string
     verseId: string
     lines: Line[]
+    users: User[]
     isGroup?: boolean
 }
 
-const Lines = ({ userId, verseId, lines, isGroup }: Props) => {
+const Lines = ({ userId, verseId, lines, users, isGroup }: Props) => {
 
     const session = useSession()
     const linesRef = useRef<HTMLDivElement | null>(null)
@@ -84,7 +85,7 @@ const Lines = ({ userId, verseId, lines, isGroup }: Props) => {
                     <LineSingle
                         key={line._id}
                         line={line}
-                        user={session.data?.user}
+                        owner={users.find(user => user._id === line.userId)}
                         isOwner={line.userId === session.data?.user.id}
                         isGroup={isGroup}
                         setImage={setImage}

@@ -1,12 +1,18 @@
-import { redirect } from 'next/navigation'
-import getSession from './services/getSession'
+import Link from 'next/link'
 
 export default async function Home() {
 
 	return (
 		<main>
-			Hello
+			<div className="flex flex-col items-center justify-center gap-4 h-screen">
+				<Link
+					href="/api/auth/signin"
+				>Login</Link>
+				<Link
+					href="/register"
+				>Register</Link>
 
+			</div>
 		</main>
 	)
 }

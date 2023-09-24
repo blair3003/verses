@@ -27,8 +27,8 @@ const ImageDialog = ({ image, setImage }: Props) => {
                 <Image
                     alt='Image'
                     src={image}
-                    height={500}
-                    width={500}
+                    height={250}
+                    width={250}
                     className="cursor-pointer"
                 />
             )}

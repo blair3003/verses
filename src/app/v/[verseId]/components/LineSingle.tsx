@@ -8,27 +8,29 @@ import { Dispatch, SetStateAction } from 'react'
 
 interface Props {
     line: Line
-    user?: User
+    owner?: User
     isOwner?: boolean
     isGroup?: boolean
     setImage: Dispatch<SetStateAction<string>>
 }
 
-const LineSingle = ({ line, user, isOwner, isGroup, setImage }: Props) => {
+const LineSingle = ({ line, owner, isOwner, isGroup, setImage }: Props) => {
 
     const { body, media, createdAt } = line
+
+    console.log(owner)
 
     return (
         <>
             <div className={`flex mb-2 gap-2 ${isOwner ? 'justify-end ml-8' : 'justify-start mr-8'}`}>
                 {isGroup && !isOwner && (
-                    <ProfilePic name={user?.name} image={user?.image} size="sm"/>
+                    <ProfilePic name={owner?.name} image={owner?.image} size="sm"/>
                 )}
                 <div className={`p-2 rounded-lg ${isOwner ? 'bg-cyan-800' : 'bg-gray-800'}`}>
                     
                     {isGroup && !isOwner && (
                         <div className="text-cyan-500 text-base">
-                            {user?.name}
+                            {owner?.name}
                         </div>
                     )}
                     {media && (
@@ -36,8 +38,8 @@ const LineSingle = ({ line, user, isOwner, isGroup, setImage }: Props) => {
                             <Image
                                 alt='File upload'
                                 src={media}
-                                height={500}
-                                width={500}
+                                height={250}
+                                width={250}
                                 onClick={() => setImage(media)}
                                 className="rounded-lg cursor-pointer"
                             />

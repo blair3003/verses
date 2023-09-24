@@ -77,8 +77,8 @@ const NewLineForm = ({ verseId }: Props) => {
                             <Image
                                 alt='File upload'
                                 src={media}
-                                height={500}
-                                width={500}
+                                height={250}
+                                width={250}
                                 className="rounded-lg"
                             />
                             <button
