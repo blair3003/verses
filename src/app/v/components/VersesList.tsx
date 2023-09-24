@@ -42,8 +42,6 @@ const VersesList = ({ verses, userId }: VerseListProps) => {
 
     useEffect(() => {
         if (existingVerses.length) {
-            console.log(`Preparing to refresh token`)
-            console.log(`Verse: ${existingVerses[0]}`)
             refreshToken(existingVerses[0])
         }
     }, [existingVerses.length])

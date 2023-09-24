@@ -18,8 +18,6 @@ const LineSingle = ({ line, owner, isOwner, isGroup, setImage }: Props) => {
 
     const { body, media, createdAt } = line
 
-    console.log(owner)
-
     return (
         <>
             <div className={`flex mb-2 gap-2 ${isOwner ? 'justify-end ml-8' : 'justify-start mr-8'}`}>
