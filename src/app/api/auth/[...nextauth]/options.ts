@@ -56,7 +56,7 @@ export const authOptions: AuthOptions = {
                 }
                 if (session?.name) token.name = session.name
                 if (session?.email) token.email = session.email
-                if (session?.image) token.image = session.image
+                if (session?.image) token.picture = session.image
             }
             return token
         },
