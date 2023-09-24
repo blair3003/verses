@@ -30,6 +30,9 @@ const createNewLine = async (verseId: string, body: string, media: string): Prom
             verse.userIds?.forEach(userId => {
                 pusherServer.trigger(userId.toString(), 'verses:new', {
                     _id: verseId,
+                    group: verse.group,
+                    subject: verse.subject,
+                    userIds: verse.userIds,
                     latestLine: newLine,
                     users: [session.user]
                 })
