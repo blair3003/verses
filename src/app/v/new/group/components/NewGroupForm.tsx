@@ -46,7 +46,7 @@ const NewGroupForm = ({ users }: Props) => {
 
                 const verseId = await group.json()
                 if (verseId) {
-                    await update({ verseId })
+                    await update({ verseIds: [verseId] })
                     router.push(`/v/${verseId}`)
                 }
             }

@@ -13,17 +13,17 @@ interface VerseListProps {
 const VersesList = ({ verses, userId }: VerseListProps) => {    
 
     const [existingVerses, setExistingVerses] = useState(verses)
-    // const { update } = useSession()    
+    const { data: session, update } = useSession()    
     
     useEffect(() => {
-        const refreshToken = async (newVerse: VerseExpanded) => {
-            // await update({ verseId: newVerse._id.toString() })
+        const refreshToken = async (verseIds: string[]) => {
+            await update({ verseIds })
         }
-        if (existingVerses.length) {
-            refreshToken(existingVerses[0])
+        const verseIds = existingVerses.map(verse => verse._id.toString()).filter(verseId => !session?.user?.verseIds?.includes(verseId))
+        if (verseIds.length) {
+            refreshToken(verseIds)
         }
-    // }, [existingVerses.length, existingVerses, update])
-    }, [existingVerses.length, existingVerses])
+    }, [existingVerses, session, update])
     
     useEffect(() => {
         
@@ -63,13 +63,13 @@ const VersesList = ({ verses, userId }: VerseListProps) => {
 
     return (
         <div className="p-6">
-            {/* {existingVerses.map(verse => (
+            {existingVerses.map(verse => (
                 <VersesItem
                     key={verse._id}
                     verse={verse}
                     userId={userId}                
                 />
-            ))} */}
+            ))}
         </div>
     )
 }

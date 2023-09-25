@@ -29,7 +29,7 @@ const UserItem = ({ user }: Props) => {
 
         const verseId = await verse.json()
         if (verseId) {
-            await update({ verseId })
+            await update({ verseIds: [verseId] })
             router.push(`/v/${verseId}`)
         }
 
