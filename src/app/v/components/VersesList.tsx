@@ -16,17 +16,18 @@ const VersesList = ({ verses, userId }: VerseListProps) => {
     const { data: session, update } = useSession()    
     
     useEffect(() => {
+        
         const refreshToken = async (verseIds: string[]) => {
             await update({ verseIds })
         }
         const verseIds = existingVerses.map(verse => verse._id.toString()).filter(verseId => !session?.user?.verseIds?.includes(verseId))
         if (verseIds.length) {
             refreshToken(verseIds)
-        }
+        }        
     }, [existingVerses, session, update])
     
-    useEffect(() => {
-        
+    useEffect(() => {  
+
         const newVersePusher = async (newVerse: VerseExpanded) => {
             setExistingVerses(existingVerses => {
                 if (existingVerses.find(verse => verse._id === newVerse._id)) {
@@ -35,7 +36,7 @@ const VersesList = ({ verses, userId }: VerseListProps) => {
                 return [newVerse, ...existingVerses]
             })
         }
-        
+
         const updatedVersePusher = (updatedVerse: VerseExpanded) => {
             setExistingVerses(existingVerses =>            
                 existingVerses.map(existingVerse => {

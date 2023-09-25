@@ -9,7 +9,6 @@ export default async function Verses() {
 
 	const session = await getSession()
 	if (!session?.user.id) redirect('/')
-	console.log(session?.user.id)
 
     const verses = await getVerses()
 
