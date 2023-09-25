@@ -17,7 +17,7 @@ export default async function Verses() {
 		<>
 			<VersesHeader />
 			<main>
-				{/* <VersesList verses={verses} userId={session.user.id}/> */}
+				<VersesList verses={verses} userId={session.user.id}/>
 				<NewVerseLink />				
 			</main>
 		</>
