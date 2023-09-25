@@ -11,6 +11,8 @@ interface VerseProps {
     }
 }
 
+export const dynamic = 'force-dynamic'
+
 export default async function Verse({ params: { verseId } }: VerseProps) {
 
 	const session = await getSession()
