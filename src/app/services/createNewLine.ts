@@ -3,6 +3,7 @@ import getSession from './getSession'
 import LineModel from '@/app/models/Line'
 import VerseModel from '@/app/models/Verse'
 import { pusherServer } from '@/lib/pusher'
+import { revalidatePath } from 'next/cache'
 
 const createNewLine = async (verseId: string, body: string, media: string): Promise<Line | null> => {
 
@@ -48,6 +49,8 @@ const createNewLine = async (verseId: string, body: string, media: string): Prom
                 })
             })
         }
+
+        revalidatePath(`/v/${verseId}`)
 
         return newLine        
 
