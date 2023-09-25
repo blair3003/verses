@@ -5,8 +5,6 @@ import VersesHeader from './components/VersesHeader'
 import NewVerseLink from './components/NewVerseLink'
 import getSession from '../services/getSession'
 
-export const dynamic = 'force-dynamic'
-
 export default async function Verses() {
 
 	const session = await getSession()
