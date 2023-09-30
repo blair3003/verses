@@ -182,7 +182,7 @@ const ProfileForm = () => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="bg-cyan-800 text-white p-2 rounded float-right w-20 h-10"
+                            className="bg-cyan-800 text-white p-2 rounded  text-center float-right w-20 h-10"
                         >
                             {isLoading ? (
                                 <>
