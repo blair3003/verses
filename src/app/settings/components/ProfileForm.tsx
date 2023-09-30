@@ -87,106 +87,121 @@ const ProfileForm = () => {
         }
     }
 
-    return profile?._id && (
-        <form
-            className=""
-            onSubmit={handleSubmit(onSubmit)}
-        >
-            <div className="mb-4">
-                <label
-                    className="sr-only"
-                    htmlFor="name"
-                >
-                    Name:
-                </label>
-                <div className="">
-                    <input
-                        id="name"
-                        type="text"
-                        disabled={isLoading}
-                        {...register("name", { required: true })}
-                        className="text-white bg-transparent border-b-2 border-gray-900 w-full p-2"
-                    />
+    return (
+        <>
+            {profile._id && (
+                <div className="p-6">
+                    <div className="text-base text-gray-300 mb-4">
+                        Profile
+                    </div>
+                    <form
+                        className=""
+                        onSubmit={handleSubmit(onSubmit)}
+                    >
+                        <div className="mb-4">
+                            <label
+                                className="sr-only"
+                                htmlFor="name"
+                            >
+                                Name:
+                            </label>
+                            <div className="">
+                                <input
+                                    id="name"
+                                    type="text"
+                                    disabled={isLoading}
+                                    {...register("name", { required: true })}
+                                    className="text-white bg-transparent border-b-2 border-gray-900 w-full p-2"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="mb-4">
+                            <label
+                                className="sr-only"
+                                htmlFor="email"
+                            >
+                                Email:
+                            </label>
+                            <div className="">
+                                <input
+                                    id="email"
+                                    type="text"
+                                    disabled={isLoading}
+                                    {...register("email", { required: true })}
+                                    className="text-white bg-transparent border-b-2 border-gray-900 w-full p-2"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="mb-4">
+                            <label
+                                className="sr-only"
+                                htmlFor="password"
+                            >
+                                Password:
+                            </label>
+                            <div className="">
+                                <input
+                                    id="password"
+                                    type="text"
+                                    disabled={isLoading}
+                                    placeholder="Change Password"
+                                    {...register("password")}
+                                    className="text-white bg-transparent border-b-2 border-gray-900 w-full p-2"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="mb-4">
+                            <div className="sr-only">
+                                Image:
+                            </div>
+                            <CldUploadButton
+                                className=""
+                                options={{ maxFiles: 1 }}
+                                onUpload={onUpload}
+                                uploadPreset="djxbt22a"
+                            >
+                                {profileImage ? (
+                                    <Image
+                                        src={profileImage}
+                                        alt={profile.name ?? 'Default'}
+                                        width={150}
+                                        height={150}
+                                        className="rounded-full cursor-pointer shadow"                 
+                                    />
+                                ) : (
+                                    <HiUserCircle size={150} />
+                                )}
+                                <span className="sr-only">Upload an image</span>
+                            </CldUploadButton>
+                            <input type="hidden" id="image" {...register("image")} />
+                        </div>            
+
+                        <button
+                            type="submit"
+                            disabled={isLoading}
+                            className="bg-cyan-800 text-white p-2 rounded float-right w-20 h-10"
+                        >
+                            {isLoading ? (
+                                <>
+                                    <PulseLoader loading={isLoading} color="#FFFFFF" size={6} />
+                                    <span className="sr-only">Updating</span>
+                                </>
+                            ) : 'Update' }
+                        </button>
+
+                    </form>
                 </div>
-            </div>
+            )}       
 
-            <div className="mb-4">
-                <label
-                    className="sr-only"
-                    htmlFor="email"
-                >
-                    Email:
-                </label>
-                <div className="">
-                    <input
-                        id="email"
-                        type="text"
-                        disabled={isLoading}
-                        {...register("email", { required: true })}
-                        className="text-white bg-transparent border-b-2 border-gray-900 w-full p-2"
-                    />
+            {!profile._id && (
+                <div className="flex items-center justify-center m-10">
+                    <PulseLoader color="#FFFFFF" size={6} />
                 </div>
-            </div>
-
-            <div className="mb-4">
-                <label
-                    className="sr-only"
-                    htmlFor="password"
-                >
-                    Password:
-                </label>
-                <div className="">
-                    <input
-                        id="password"
-                        type="text"
-                        disabled={isLoading}
-                        placeholder="Change Password"
-                        {...register("password")}
-                        className="text-white bg-transparent border-b-2 border-gray-900 w-full p-2"
-                    />
-                </div>
-            </div>
-
-            <div className="mb-4">
-                <div className="sr-only">
-                    Image:
-                </div>
-                <CldUploadButton
-                    className=""
-                    options={{ maxFiles: 1 }}
-                    onUpload={onUpload}
-                    uploadPreset="djxbt22a"
-                >
-                    {profileImage ? (
-                        <Image
-                            src={profileImage}
-                            alt={profile.name ?? 'Default'}
-                            width={150}
-                            height={150}
-                            className="rounded-full cursor-pointer shadow"                 
-                        />
-                    ) : (
-                        <HiUserCircle size={150} />
-                    )}
-                    <span className="sr-only">Upload an image</span>
-                </CldUploadButton>
-                <input type="hidden" id="image" {...register("image")} />
-            </div>            
-
-            <button
-                type="submit"
-                disabled={isLoading}
-                className="bg-cyan-800 text-white p-2 rounded float-right w-20 h-10"
-            >
-                {isLoading ? (
-                    <>
-                        <PulseLoader loading={isLoading} color="#FFFFFF" size={6} />
-                        <span className="sr-only">Updating</span>
-                    </>
-                ) : 'Update' }
-            </button>
-
-        </form>
+            )}
+        </>
     )
 
 }

@@ -14,6 +14,7 @@ const ProfilePic = ({ name = '', image, size = 'md' }: Props) => {
                 <Image
                     alt={name}
                     src={image}
+                    sizes="150px"
                     fill
                 />
               : <div className="h-full flex items-center justify-center bg-cyan-800">{name[0].toUpperCase()}</div>
