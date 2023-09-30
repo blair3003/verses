@@ -11,8 +11,6 @@ interface VerseProps {
     }
 }
 
-// export const dynamic = 'force-dynamic'
-
 export default async function Verse({ params: { verseId } }: VerseProps) {
 
 	const session = await getSession()
@@ -25,7 +23,7 @@ export default async function Verse({ params: { verseId } }: VerseProps) {
 		<>
 			<VerseHeader verse={verse} />
 			<main className="grow flex flex-col">
-				<Lines userId={session.user.id} verseId={verseId} lines={verse.lines} users={verse.users} isGroup={verse.group} />
+				<Lines userId={session.user.id} verseId={verseId} />
 				<NewLineForm verseId={verseId} />
 			</main>
 		</>

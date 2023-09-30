@@ -5,21 +5,40 @@ import LineSingle from './LineSingle'
 import { useSession } from 'next-auth/react'
 import ImageDialog from './ImageDialog'
 import { pusherClient } from '@/lib/pusher'
+import { PulseLoader } from 'react-spinners'
 
 interface Props {
     userId?: string
     verseId: string
-    lines: Line[]
-    users: User[]
-    isGroup?: boolean
 }
 
-const Lines = ({ userId, verseId, lines, users, isGroup }: Props) => {
+const Lines = ({ userId, verseId }: Props) => {
 
     const session = useSession()
     const linesRef = useRef<HTMLDivElement | null>(null)
     const [image, setImage] = useState('')
-    const [latestLines, setLatestLines] = useState(lines)
+    const [verse, setVerse] = useState<VerseExpandedWithLines | null>(null)
+    const [latestLines, setLatestLines] = useState<Line[]>([])
+    
+    useEffect(() => {
+
+        const controller = new AbortController()
+
+        const getVerse = async () => {
+            const res = await fetch(`/api/verses/${verseId}`)
+            const verse: VerseExpandedWithLines = await res.json()
+            if (verse) setVerse(verse)
+        }
+        getVerse()
+        
+        return () => controller.abort()
+    }, [])
+
+    useEffect(() => {
+        if (verse) {
+            setLatestLines(verse.lines)
+        }
+    }, [verse])
 
     
     useEffect(() => {
@@ -87,13 +106,19 @@ const Lines = ({ userId, verseId, lines, users, isGroup }: Props) => {
                     <LineSingle
                         key={line._id}
                         line={line}
-                        owner={users.find(user => user._id === line.userId)}
+                        owner={verse?.users.find(user => user._id === line.userId)}
                         isOwner={line.userId === session.data?.user.id}
-                        isGroup={isGroup}
+                        isGroup={verse?.group}
                         setImage={setImage}
                     />
                 )
             })}
+
+            {!latestLines.length && (
+                <div className="flex items-center justify-center m-10">
+                    <PulseLoader color="#FFFFFF" size={6} />
+                </div>
+            )}
         </div>
     )
 }

@@ -4,23 +4,38 @@ import { pusherClient } from '@/lib/pusher'
 import VersesItem from './VersesItem'
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
+import { PulseLoader } from 'react-spinners'
 
 interface VerseListProps {
-    verses: VerseExpanded[]
     userId: string
 }
 
-const VersesList = ({ verses, userId }: VerseListProps) => {    
+const VersesList = ({ userId }: VerseListProps) => {    
 
-    const [existingVerses, setExistingVerses] = useState(verses)
-    const { data: session, update } = useSession()    
+    const [existingVerses, setExistingVerses] = useState<VerseExpanded[]>([])
+    const { data: session, update } = useSession()
+    
+    useEffect(() => {
+
+        const controller = new AbortController()
+
+        const getVerses = async () => {
+            const res = await fetch('/api/verses')
+            const verses: VerseExpanded[] = await res.json()
+            if (verses) setExistingVerses(verses)
+        }
+        getVerses()
+        
+        return () => controller.abort()
+
+    }, [])
     
     useEffect(() => {
         
         const refreshToken = async (verseIds: string[]) => {
             await update({ verseIds })
         }
-        const verseIds = existingVerses.map(verse => verse._id.toString()).filter(verseId => !session?.user?.verseIds?.includes(verseId))
+        const verseIds = existingVerses?.map(verse => verse._id.toString()).filter(verseId => !session?.user?.verseIds?.includes(verseId))
         if (verseIds.length) {
             refreshToken(verseIds)
         }        
@@ -71,6 +86,11 @@ const VersesList = ({ verses, userId }: VerseListProps) => {
                     userId={userId}                
                 />
             ))}
+            {!existingVerses.length && (
+                <div className="flex items-center justify-center m-10">
+                    <PulseLoader color="#FFFFFF" size={6} />
+                </div>
+            )}
         </div>
     )
 }
