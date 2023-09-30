@@ -32,7 +32,7 @@ const Lines = ({ userId, verseId }: Props) => {
         getVerse()
         
         return () => controller.abort()
-    }, [])
+    }, [verseId])
 
     useEffect(() => {
         if (verse) {
