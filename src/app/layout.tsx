@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 	return (
 		<html lang="en">
-			<body className={`${yantramanav.className} h-screen bg-gray-950 text-white flex flex-col max-w-sm mx-auto border-x-2 border-gray-900`}>
+			<body className={`${yantramanav.className} h-screen bg-gray-950 text-white flex flex-col max-w-md mx-auto border-x-2 border-gray-900 relative`}>
 				<AuthProvider>
 					{children}
 				</AuthProvider>	

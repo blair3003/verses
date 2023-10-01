@@ -5,6 +5,7 @@ import VersesItem from './VersesItem'
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { PulseLoader } from 'react-spinners'
+import Link from 'next/link'
 
 interface VerseListProps {
     userId: string
@@ -14,17 +15,25 @@ const VersesList = ({ userId }: VerseListProps) => {
 
     const [existingVerses, setExistingVerses] = useState<VerseExpanded[]>([])
     const { data: session, update } = useSession()
+    const [loading, setLoading] = useState(false)
     
     useEffect(() => {
 
         const controller = new AbortController()
 
-        const getVerses = async () => {
-            const res = await fetch('/api/verses')
-            const verses: VerseExpanded[] = await res.json()
-            if (verses) setExistingVerses(verses)
+        try {
+            setLoading(true)
+            const getVerses = async () => {
+                const res = await fetch('/api/verses', { signal: controller.signal })
+                const verses: VerseExpanded[] = await res.json()
+                if (verses) setExistingVerses(verses)
+            }
+            getVerses()
+        } catch (err) {
+            console.error(err)
+        } finally {
+            setLoading(false)
         }
-        getVerses()
         
         return () => controller.abort()
 
@@ -79,14 +88,17 @@ const VersesList = ({ userId }: VerseListProps) => {
 
     return (
         <div className="p-6">
-            {existingVerses.map(verse => (
+            {!loading && existingVerses.map(verse => (
                 <VersesItem
                     key={verse._id}
                     verse={verse}
                     userId={userId}                
                 />
             ))}
-            {!existingVerses.length && (
+            {!loading && !existingVerses.length && (
+				<p className="text-white p-2 text-center">Start your first verse!</p>
+            )}
+            {loading && (
                 <div className="flex items-center justify-center m-10">
                     <PulseLoader color="#FFFFFF" size={6} />
                 </div>

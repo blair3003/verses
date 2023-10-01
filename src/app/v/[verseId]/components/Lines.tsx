@@ -16,6 +16,7 @@ const Lines = ({ userId, verseId }: Props) => {
 
     const session = useSession()
     const linesRef = useRef<HTMLDivElement | null>(null)
+    const [loading, setLoading] = useState(false)
     const [image, setImage] = useState('')
     const [verse, setVerse] = useState<VerseExpandedWithLines | null>(null)
     const [latestLines, setLatestLines] = useState<Line[]>([])
@@ -24,12 +25,19 @@ const Lines = ({ userId, verseId }: Props) => {
 
         const controller = new AbortController()
 
-        const getVerse = async () => {
-            const res = await fetch(`/api/verses/${verseId}`)
-            const verse: VerseExpandedWithLines = await res.json()
-            if (verse) setVerse(verse)
+        try {
+            setLoading(true)
+            const getVerse = async () => {
+                const res = await fetch(`/api/verses/${verseId}`, { signal: controller.signal })
+                const verse: VerseExpandedWithLines = await res.json()
+                if (verse) setVerse(verse)
+            }
+            getVerse()
+        } catch (err) {
+            console.error(err)
+        } finally {
+            setLoading(false)            
         }
-        getVerse()
         
         return () => controller.abort()
     }, [verseId])
@@ -101,7 +109,7 @@ const Lines = ({ userId, verseId }: Props) => {
         >
             {image && <ImageDialog image={image} setImage={setImage} />}
             
-            {session.data?.user && latestLines?.map(line => {
+            {!loading && session.data?.user && latestLines?.map(line => {
                 return (
                     <LineSingle
                         key={line._id}
@@ -113,8 +121,11 @@ const Lines = ({ userId, verseId }: Props) => {
                     />
                 )
             })}
+            {!loading && !latestLines.length && (
+				<p className="text-white p-2 text-center">Send your first line!</p>
+            )}
 
-            {!latestLines.length && (
+            {loading && (
                 <div className="flex items-center justify-center m-10">
                     <PulseLoader color="#FFFFFF" size={6} />
                 </div>

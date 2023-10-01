@@ -13,6 +13,11 @@ export default async function Home() {
 					href="/v"
 					className="bg-cyan-800 text-white p-2 rounded text-center w-20 h-10"
 				>Sign in</Link>
+				<div className="text-center">
+					<h3 className="underline">Guest account:</h3>
+					<p>Email: <span className="font-bold">guest@forthdev.com</span></p>
+					<p>Password: <span className="font-bold">password</span></p>
+				</div>
 				<Link
 					href="/register"
 					className="bg-cyan-800 text-white p-2 rounded text-center w-20 h-10"
